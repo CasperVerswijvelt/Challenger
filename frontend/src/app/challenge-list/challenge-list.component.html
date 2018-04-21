@@ -1,0 +1,23 @@
+<div class="card">
+  <h4 class="card-header">All challenges</h4>
+  <div class="col-xs-2">
+      <input type='text' placeholder='filter challenge ...' #filter>
+      <button (click)="filterValue = filter.value">filter</button>
+    </div>
+  <div class="col-xs-2">
+
+    <select class="form-control" ng-model="sortBy">
+      <option value="None">-- Sort by --</option>
+
+      <option value="Name">Name</option>
+      <option value="Address">Address</option>
+
+    </select>
+  </div>
+
+
+  <ol  class="list-group list-group-flush" style="margin:1em;">
+    <app-challenge *ngFor="let chal of Challenges | challengeFilter : filterValue" [Challenge]='chal'></app-challenge>
+  </ol>
+
+</div>

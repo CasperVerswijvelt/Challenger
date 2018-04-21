@@ -1,0 +1,18 @@
+<div (click)="state = !state">
+  <li class="list-group-item"  style="display: list-item;">
+    <p [hidden]="state">{{Challenge.name}}</p>
+
+    <div class="card" [hidden]="!state" >
+        <div class="card-body">
+          <h5 class="card-title">{{Challenge.name}}</h5>
+          <p class="card-text">{{Challenge.description}}</p>
+          <p class="card-text">{{Challenge.dateCreated | date: 'longDate'}}</p>
+          <a href="#" class="btn btn-primary">Enter challenge</a>
+    
+        </div>
+      </div>
+  </li>
+
+  
+
+</div>

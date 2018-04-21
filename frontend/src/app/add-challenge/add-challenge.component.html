@@ -1,0 +1,14 @@
+<div class="card">
+  <h4 class="card-header">Create challenge</h4>
+  <div class="field">
+    <label for="name">Name:</label>
+    <input id="name" name="name" #newChallengeName>
+    <br>
+    <label for="description">Description:</label>
+    <input id="description" name="description" #newChallengeDescription>
+  </div>
+  <button (click)="addChallenge(newChallengeName, newChallengeDescription)"
+  	    class="btn btn-primary">
+    Create challenge!
+  </button>
+</div>
