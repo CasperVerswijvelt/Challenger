@@ -9,7 +9,7 @@ import { Challenge } from '../challenge/challenge.model';
 export class ChallengeListComponent implements OnInit {
 
   @Input() public Challenges:Array<Challenge>
-  public filter:string ="";
+  public filterValue:string ="";
   constructor() { }
 
   ngOnInit() {
