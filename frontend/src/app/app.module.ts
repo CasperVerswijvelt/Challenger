@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { ChallengeComponent } from './challenge/challenge.component';
@@ -20,7 +20,7 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
     ChallengeFilterPipe
   ],
   imports: [
-    BrowserModule,HttpClientModule
+    BrowserModule,HttpClientModule, BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,18 +1,22 @@
-<div (click)="state = !state">
-  <li class="list-group-item"  style="display: list-item;">
-    <p [hidden]="state">{{Challenge.name}}</p>
+<li class="list-group-item">
+  <p>
+    {{Challenge.name}}
+    <button type="button" class="btn btn-default float-right" (click)="toggleState()">
+      <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+    </button>
 
-    <div class="card" [hidden]="!state" >
-        <div class="card-body">
-          <h5 class="card-title">{{Challenge.name}}</h5>
-          <p class="card-text">{{Challenge.description}}</p>
-          <p class="card-text">{{Challenge.dateCreated | date: 'longDate'}}</p>
-          <a href="#" class="btn btn-primary">Enter challenge</a>
-    
-        </div>
-      </div>
-  </li>
+  </p>
 
-  
+  <div class="card border-light mb-3" [@state]="state">
+    <div class="card-body">
+      <h5 class="card-title">{{Challenge.name}}</h5>
+      <p class="card-text">{{Challenge.description}}</p>
 
-</div>
+
+    </div>
+    <div class="card-footer">
+      <a href="#" class="btn btn-primary">Tell me more</a>
+      <small class="text-muted float-right">{{Challenge.dateCreated | date: 'longDate'}}</small>
+    </div>
+  </div>
+</li>

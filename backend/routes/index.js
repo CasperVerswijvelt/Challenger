@@ -19,10 +19,31 @@ router.get('/API/challenges/', function(req, res, next) {
 
 router.post('/API/challenges/', function (req, res, next) {
   let chal = new Challenge(req.body);
-  chal.save(function(err, rec) {
+  chal.save(function(err, ch) {
     if (err){ return next(err); }
-    res.json(rec);
+    res.json(ch);
   });
 });  
+
+router.param('challenge', function(req, res, next, id) {
+  let query = Challenge.findById(id);
+  query.exec(function (err, challenge){
+    if (err) { return next(err); }
+    if (!challenge) { return next(new Error('not found ' + id)); }
+    req.challenge = challenge;
+    return next();
+  });
+});
+
+router.get('/API/challenge/:challenge', function(req, res, next) {
+  res.json(req.challenge);
+});
+
+router.delete('/API/challenge/:challenge', function(req, res, next) {
+  req.challenge.remove(function(err) {
+    if (err) { return next(err); }   
+    res.json("removed challenge");
+  });
+})
 
 module.exports = router;

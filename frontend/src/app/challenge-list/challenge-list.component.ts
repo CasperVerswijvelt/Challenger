@@ -10,9 +10,12 @@ export class ChallengeListComponent implements OnInit {
 
   @Input() public Challenges:Array<Challenge>
   public filterValue:string ="";
-  constructor() { }
+  constructor() { 
+    
+  }
 
   ngOnInit() {
+    
   }
 
 
