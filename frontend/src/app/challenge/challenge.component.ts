@@ -32,10 +32,8 @@ import {
 export class ChallengeComponent implements OnInit {
 
   @Input() public Challenge:Challenge;
-  public state:boolean = false;;
-  public toggle =function () {
-    
-  };
+  @Input() public Rang:number;
+  public state:boolean = false;
 
   ngOnInit() {
   }

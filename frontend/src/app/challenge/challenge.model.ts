@@ -3,7 +3,9 @@ export class Challenge {
 
 
     constructor(private _name: string, private _description: string, private _dateCreated: Date = new Date()) {
-            _dateCreated ;
+           // if(_name == null || _name.length == 0)
+          //   throw new Error("Naam mag niet leeg zijn");
+
     }
 
     get name() {
