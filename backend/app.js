@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 require('./models/Challenge');
+require('./models/Entry');
 
 
 var indexRouter = require('./routes/index');

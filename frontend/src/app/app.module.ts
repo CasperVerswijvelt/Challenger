@@ -10,6 +10,7 @@ import { ChallengeListComponent } from './challenge-list/challenge-list.componen
 import { ChallengeFilterPipe } from './challenge-filter.pipe';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EntryComponent } from './entry/entry.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ChallengeComponent,
     AddChallengeComponent,
     ChallengeListComponent,
-    ChallengeFilterPipe
+    ChallengeFilterPipe,
+    EntryComponent
   ],
   imports: [
     BrowserModule,ReactiveFormsModule,HttpClientModule, BrowserAnimationsModule
