@@ -1,6 +1,6 @@
 export class Challenge {
 
-
+    private _id;
 
     constructor(private _name: string, private _description: string, private _dateCreated: Date = new Date()) {
            // if(_name == null || _name.length == 0)
@@ -20,9 +20,14 @@ export class Challenge {
 
     toJSON() {
         return {
+          id:this._id,
           name: this._name,
           description:this._description,
           created:this._dateCreated
         };
-      }
+    }
+
+    get id(): string {
+        return this._id;
+    }
 }

@@ -9,6 +9,7 @@ import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 import { ChallengeListComponent } from './challenge-list/challenge-list.component';
 import { ChallengeFilterPipe } from './challenge-filter.pipe';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
     ChallengeFilterPipe
   ],
   imports: [
-    BrowserModule,HttpClientModule, BrowserAnimationsModule
+    BrowserModule,ReactiveFormsModule,HttpClientModule, BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

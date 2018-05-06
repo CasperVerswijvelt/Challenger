@@ -39,10 +39,18 @@ router.get('/API/challenge/:challenge', function(req, res, next) {
   res.json(req.challenge);
 });
 
+
 router.delete('/API/challenge/:challenge', function(req, res, next) {
   req.challenge.remove(function(err) {
     if (err) { return next(err); }   
     res.json("removed challenge");
+  });
+})
+
+router.put('/API/challenge/:challenge', function(req, res, next) {
+  req.challenge.save(function(err) {
+    if (err) { return next(err); }   
+    res.json("updated challenge");
   });
 })
 
