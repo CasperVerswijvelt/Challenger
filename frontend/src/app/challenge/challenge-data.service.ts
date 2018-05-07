@@ -41,7 +41,7 @@ export class ChallengeDataService {
 
   addEntryToChallenge(entr: Entry, chal: Challenge): 
     Observable<Entry> {
-      const theUrl = `${this._appUrl}/challenge/${chal.id}/entries`;
+      const theUrl = `/API/challenge/${chal.id}/entries`;
       return this.http.post(theUrl, entr).pipe(map(Entry.fromJSON));
   }
 }

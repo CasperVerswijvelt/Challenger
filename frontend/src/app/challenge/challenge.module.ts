@@ -11,6 +11,7 @@ import { ChallengeDataService } from "./challenge-data.service";
 import { RouterModule } from "@angular/router";
 import { ChallengeDetailsComponent } from './challenge-details/challenge-details.component';
 import { ChallengeResolver } from "./challenge-resolver";
+import { AddEntryComponent } from './add-entry/add-entry.component';
 
 const routes = [
     { path: 'challenge/list', component: ChallengeListComponent },
@@ -32,7 +33,8 @@ const routes = [
         ChallengeListComponent,
         ChallengeFilterPipe,
         EntryComponent,
-        ChallengeDetailsComponent,],
+        ChallengeDetailsComponent,
+        AddEntryComponent,],
     providers: [ ChallengeDataService , ChallengeResolver ]
   })
   export class ChallengeModule { }

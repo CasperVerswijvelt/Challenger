@@ -10,9 +10,16 @@ export class ChallengeFilterPipe implements PipeTransform {
     if (!name || name.length === 0) {
       return challenges;
     }
-    return challenges.filter(chal =>
+    return this.sort(challenges.filter(chal =>
       chal.name.toLowerCase().indexOf(name.toLowerCase())>=0
-    );
+    ));
+  }
+
+  sort(challenges:Challenge[]) {
+    challenges.sort((c1,c2)=> {
+      return (c2.entries?c2.entries.length:0) - (c1.entries?c1.entries.length:0)
+    });
+    return challenges;
   }
 
 }

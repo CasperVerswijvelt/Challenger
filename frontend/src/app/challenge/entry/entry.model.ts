@@ -28,8 +28,8 @@ export class Entry {
 
     static fromJSON(json:any):Entry {
         const rec = new Entry(
-            json.description,
-            json.img
+            json.img,
+            json.description
         );
         rec._id = json._id
         return rec;

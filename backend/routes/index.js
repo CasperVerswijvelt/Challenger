@@ -45,7 +45,7 @@ router.post('/API/challenges/', function (req, res, next) {
 
 
 router.param('challenge', function (req, res, next, id) {
-  let query = Challenge.findById(id);
+  let query = Challenge.findById(id).populate("entries");
   query.exec(function (err, challenge) {
     if (err) { return next(err); }
     if (!challenge) { return next(new Error('not found ' + id)); }

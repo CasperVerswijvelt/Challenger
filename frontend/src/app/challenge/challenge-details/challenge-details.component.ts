@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Challenge } from '../challenge/challenge.model';
 import { ChallengeDataService } from '../challenge-data.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-challenge-details',
@@ -10,6 +11,7 @@ import { ChallengeDataService } from '../challenge-data.service';
 })
 export class ChallengeDetailsComponent implements OnInit {
   private _challenge : Challenge;
+  private entryForm : FormBuilder;
 
   constructor(private route: ActivatedRoute,private challengeDataService: ChallengeDataService) {
     this.route.data.subscribe(item => 
@@ -22,5 +24,7 @@ export class ChallengeDetailsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
 
 }

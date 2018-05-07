@@ -1,14 +1,16 @@
-<div class="card">
-    <img class="card-img-top" src="{{Entry.img}}" alt="Card image cap">
-    <div class="card-body">
-            {{Entry.img}}
-        <h5 class="card-title">Casper Verswijvelt</h5>
-        <p class="card-text">{{Entry.beschrijving}}</p>
-        <p class="card-text"><small class="text-muted">{{ Entry.dateCreated | date : 'M/d/yy'}}</small></p>
+<div class="card" style="margin:1em;">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card-block" style="padding: 2em;">
+        <h4 class="card-title">Casper Verswijvelt</h4>
+        <p class="card-text">{{Entry.description}}</p>
+
       </div>
-
-
-
-
-  
+    </div>
+    <div class="col-md-6">
+      <div class="card-img-bottom" style="height: 20em ; background-size: cover;background-repeat: no-repeat; background-position: center;"
+      [ngStyle]="{'background-image':'url( '+Entry.img+' )'}">
+      </div>
+    </div>
+  </div>
 </div>
