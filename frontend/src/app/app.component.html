@@ -14,7 +14,7 @@
 <body>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
         <div class="container">
-            <a class="navbar-brand logo" href="#">{{title}}</a>
+            <a class="navbar-brand logo" class="nav-link" routerLinkActive='active' routerLink="/">{{title}}</a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="navbar-toggler-icon"></span>
@@ -22,13 +22,19 @@
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" routerLinkActive='active' routerLink="/home">
+                            Home
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="features.html">Challenges</a>
+                        <a class="nav-link" routerLinkActive='active' routerLink="/challenge-list">
+                            Challenges
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="pricing.html">Create your own challenge</a>
+                        <a class="nav-link" routerLinkActive='active' routerLink="/add-challenge">
+                            Create your own challenge
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="contact-us.html">Login</a>
@@ -41,12 +47,7 @@
         <section class="clean-block about-us">
 
             <div class="mx-auto" style="width: 80%;">
-                <app-add-challenge (newChallenge)="newChallengeAdded($event)"></app-add-challenge>
-            </div>
-
-            <br>
-            <div class="mx-auto" style="width: 80%;">
-                <app-challenge-list [Challenges]="challenges"></app-challenge-list>
+                    <router-outlet></router-outlet>
             </div>
 
         </section>

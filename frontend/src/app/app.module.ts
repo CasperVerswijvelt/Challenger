@@ -11,6 +11,12 @@ import { ChallengeFilterPipe } from './challenge-filter.pipe';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EntryComponent } from './entry/entry.component';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { AppRoutingModule } from './app-routing.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+
 
 
 @NgModule({
@@ -20,10 +26,12 @@ import { EntryComponent } from './entry/entry.component';
     AddChallengeComponent,
     ChallengeListComponent,
     ChallengeFilterPipe,
-    EntryComponent
+    EntryComponent,
+    HomeComponent,
+    PageNotFoundComponent
   ],
   imports: [
-    BrowserModule,ReactiveFormsModule,HttpClientModule, BrowserAnimationsModule
+    BrowserModule,AppRoutingModule,ReactiveFormsModule,HttpClientModule, BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

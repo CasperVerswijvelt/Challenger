@@ -25,21 +25,19 @@
       <table class="table">
           <thead>
             <tr>
-              <th scope="col">Rang</th>
+              <th scope="col">Inzendingen</th>
               <th scope="col">Naam</th>
               <th scope="col">Auteur</th>
               <th scope="col">Gepost</th>
-              <th scope="col">Aantal inzendingen</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let chal of Challenges | challengeFilter : filterValue; let i = index" [attr.data-index]="i" >
+            <tr *ngFor="let chal of challenges | challengeFilter : filterValue">
 
-                <th scope="row">{{i+1}}</th>
+                <th scope="row">{{chal?.entries?.length || "0"}}</th>
                 <td>{{chal.name}}</td>
                 <td>Casper Verswijvelt</td>
                 <td>{{chal.dateCreated}}</td>
-                <td>2</td>
                 <td>
                     <a href="#" class="btn btn-primary">Tell me more</a>
                 </td>
@@ -50,6 +48,7 @@
 
 
   <p class="text-center" *ngIf="Challenges==undefined || Challenges.length == 0">There are no challenges yet, make one!</p>
+  <p class="text-center" *ngIf="(Challenges | challengeFilter : filterValue)?.length == 0">No challenges were found matching your input.</p>
 
 
 

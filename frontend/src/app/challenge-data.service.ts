@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Challenge } from './challenge/challenge.model';
+import { Entry } from './entry/entry.model';
 
 @Injectable()
 export class ChallengeDataService {
@@ -32,5 +33,11 @@ export class ChallengeDataService {
           new Challenge(item.name, item.description, item.created)
       )
     );
+  }
+
+  addEntryToChallenge(entr: Entry, chal: Challenge): 
+    Observable<Entry> {
+      const theUrl = `${this._appUrl}/challenge/${chal.id}/entries`;
+      return this.http.post(theUrl, entr).pipe(map(Entry.fromJSON));
   }
 }

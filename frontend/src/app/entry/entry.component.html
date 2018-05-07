@@ -1,3 +1,13 @@
 <div class="card">
-  {{name}}
+    <img class="card-img-top" src="{{Entry.img}}" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Casper Verswijvelt</h5>
+        <p class="card-text">{{Entry.beschrijving}}</p>
+        <p class="card-text"><small class="text-muted">{{ Entry.dateCreated | date : 'M/d/yy'}}</small></p>
+      </div>
+
+
+
+
+  
 </div>

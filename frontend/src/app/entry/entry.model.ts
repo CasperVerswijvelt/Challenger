@@ -10,7 +10,7 @@ export class Entry {
     get description() {
         return this._description;
     }
-    get descimgription() {
+    get img() {
         return this._img;
     }
     get dateCreated() {
@@ -24,6 +24,15 @@ export class Entry {
           img: this._img,
           created:this._dateCreated
         };
+    }
+
+    static fromJSON(json:any):Entry {
+        const rec = new Entry(
+            json.description,
+            json.img
+        );
+        rec._id = json._id
+        return rec;
     }
 
     get id(): string {

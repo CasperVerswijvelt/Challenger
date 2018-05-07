@@ -1,6 +1,9 @@
+import { Entry } from "../entry/entry.model";
+
 export class Challenge {
 
     private _id;
+    private _entries : Entry[];
 
     constructor(private _name: string, private _description: string, private _dateCreated: Date = new Date()) {
            // if(_name == null || _name.length == 0)
@@ -18,6 +21,18 @@ export class Challenge {
         return this._dateCreated;
     }
 
+    get entries() {
+        return this._entries;
+    }
+
+    addEntry(entr : Entry) {
+        this._entries.push(entr);
+    }
+
+    get id(): string {
+        return this._id;
+    }
+
     toJSON() {
         return {
           id:this._id,
@@ -27,7 +42,5 @@ export class Challenge {
         };
     }
 
-    get id(): string {
-        return this._id;
-    }
+    
 }
