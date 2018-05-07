@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-header">
+    <h4> <span style="font-weight: bold">Challenge: </span>{{challenge.name}}</h4>
+  </div>
+  <div class="card-body">
+    <p class="card-text"><span style="font-weight: bold">Description: </span>{{challenge.description}}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+      <app-entry *ngFor="let entry of challenge.entries" [Entry]="entry"></app-entry>
+    </ul>
+
+
+</div>
+

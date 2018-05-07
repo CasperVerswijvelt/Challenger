@@ -3,10 +3,10 @@
     <h4 style="display:inline-block">
       All challenges
     </h4>
-    <div class="col-xs-2 pull-right" style=" float:right;">
-      <input type='text' placeholder='filter challenge ...' #filter>
-      <button (click)="filterValue = filter.value">filter</button>
-    </div>
+    <form class="col-xs-2 pull-right" style=" float:right;" [formGroup]='filterGroup' (ngSubmit)="onFilterSubmit()">
+      <input type='text' placeholder='filter challenge ...' formControlName="filter">
+      <button type="submit">filter</button>
+    </form >
   </div>
   
 <!-- <div class="col-xs-2">
@@ -37,9 +37,9 @@
                 <th scope="row">{{chal?.entries?.length || "0"}}</th>
                 <td>{{chal.name}}</td>
                 <td>Casper Verswijvelt</td>
-                <td>{{chal.dateCreated}}</td>
+                <td>{{chal.dateCreated | date: "d/M/'yy - h:mm"}} </td>
                 <td>
-                    <a href="#" class="btn btn-primary">Tell me more</a>
+                    <a routerLink="/challenge/{{chal.id}}" class="btn btn-primary">Tell me more</a>
                 </td>
             </tr>
           </tbody>
@@ -47,8 +47,8 @@
 
 
 
-  <p class="text-center" *ngIf="Challenges==undefined || Challenges.length == 0">There are no challenges yet, make one!</p>
-  <p class="text-center" *ngIf="(Challenges | challengeFilter : filterValue)?.length == 0">No challenges were found matching your input.</p>
+  <p class="text-center" *ngIf="challenges==undefined || challenges.length == 0">There are no challenges yet, make one!</p>
+  <p class="text-center" *ngIf="(challenges | challengeFilter : filterValue)?.length == 0">No challenges were found matching your input.</p>
 
 
 

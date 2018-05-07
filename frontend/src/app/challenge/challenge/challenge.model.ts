@@ -38,8 +38,15 @@ export class Challenge {
           id:this._id,
           name: this._name,
           description:this._description,
-          created:this._dateCreated
+          created:this._dateCreated,
+          entries:this.entries
         };
+    }
+    static fromJSON(json:any):Challenge {
+        const rec = new Challenge(json.name, json.description,new Date(json.created));
+        rec._id = json._id;
+        rec._entries = json.entries;
+        return rec;
     }
 
     

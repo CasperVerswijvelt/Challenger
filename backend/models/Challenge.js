@@ -5,6 +5,6 @@ let ChallengeSchema = new mongoose.Schema({
   description:String,
   created:Date,
   entries: [{type: mongoose.Schema.Types.ObjectId, 
-    ref: 'Entry'}],
+    ref: 'Entry'}]
 });	
 mongoose.model('Challenge', ChallengeSchema);

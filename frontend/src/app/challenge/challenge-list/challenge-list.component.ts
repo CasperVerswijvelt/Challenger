@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Challenge } from '../challenge/challenge.model';
 import { ChallengeDataService } from '../challenge-data.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-challenge-list',
@@ -11,12 +12,21 @@ export class ChallengeListComponent implements OnInit {
   public filterValue:string ="";
   private _challenges : Challenge[];
 
-  constructor(private _recipeDataService: ChallengeDataService) { 
+  private filterGroup : FormGroup;
+
+  constructor(private fb:FormBuilder,private _recipeDataService: ChallengeDataService) { 
     
   }
 
   ngOnInit() {
     this._recipeDataService.challenges.subscribe(items => this._challenges = items);
+    this.filterGroup = this.fb.group({
+      filter : this.fb.control('')
+    })
+  }
+
+  onFilterSubmit(input:string) {
+    this.filterValue = this.filterGroup.value.filter;
   }
 
   get challenges() {

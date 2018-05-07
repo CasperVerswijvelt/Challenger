@@ -17,11 +17,15 @@ export class ChallengeDataService {
     .get(this._appUrl)
     .pipe(
       map((list: any[]): Challenge[] =>
-        list.map(item => 
-          new Challenge(item.name, item.description, item.created)
+        list.map(Challenge.fromJSON
         )
       )
     );
+  }
+  getChallenge(id: string): Observable<Challenge> {
+    return this.http
+      .get(`/API/challenge/${id}`)
+      .pipe(map(Challenge.fromJSON));
   }
 
   newChallengeAdded(challenge:Challenge) {

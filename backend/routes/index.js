@@ -31,11 +31,9 @@ router.post('/API/challenges/', function (req, res, next) {
       created: req.body.created
     });
 
-    chal.entries = entr;
 
     chal.save(function (err, ch) {
       if(err) {
-        Entry.remove({_id: {$in:chal.entries}});
         return next(err);
       }
       res.json(ch);
