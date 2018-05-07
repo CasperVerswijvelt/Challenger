@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card col-sm-8 offset-sm-2" style="margin-top:1em;">
   <form class="form-horizontal" [formGroup]='entryForm' (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Image:</label>
@@ -14,7 +14,8 @@
     </div>
     <div class="form-group">
       <label for="name">Image:</label>
-      <textarea autocomplete="off" class="form-control" type="text" id="description" name="description" formControlName="description" #spy placeholder="URL to your image (You can upload images with imgur and use the imgur link here!)">
+      <textarea autocomplete="off" class="form-control" type="text" id="description" name="description" formControlName="description" #spy 
+      placeholder="Give a description of your image or tell everyone how this cool photo came to be">
       </textarea>
 
 
@@ -25,7 +26,7 @@
         You must provide a description!
       </p>
     </div>
-    <button type="submit" class="btn btn-primary"> my entry</button>
+    <button type="submit" class="btn btn-primary">Enter challenge</button>
   </form>
 
 </div>

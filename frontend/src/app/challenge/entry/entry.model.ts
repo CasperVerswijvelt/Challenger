@@ -31,7 +31,8 @@ export class Entry {
             json.img,
             json.description
         );
-        rec._id = json._id
+        rec._id = json._id;
+        rec._dateCreated = json.created;
         return rec;
     }
 

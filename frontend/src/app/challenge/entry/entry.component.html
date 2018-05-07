@@ -4,7 +4,7 @@
       <div class="card-block" style="padding: 2em;">
         <h4 class="card-title">Casper Verswijvelt</h4>
         <p class="card-text">{{Entry.description}}</p>
-
+        <i>Posted on {{Entry.dateCreated | date: "d/M/'yy - h:mm"}}</i>
       </div>
     </div>
     <div class="col-md-6">
@@ -12,5 +12,6 @@
       [ngStyle]="{'background-image':'url( '+Entry.img+' )'}">
       </div>
     </div>
+    
   </div>
 </div>
