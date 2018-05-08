@@ -4,7 +4,7 @@
       <div class="card-block" style="padding: 2em;">
         <h4 class="card-title">Casper Verswijvelt</h4>
         <p class="card-text">{{Entry.description}}</p>
-        <i>Posted on {{Entry.created | date: "d/M/'yy - hh:mm"}}</i>
+        <i>Posted on {{(Entry | json).dateCreated | date: "d/M/'yy - hh:mm"}}</i>
       </div>
     </div>
     <div class="col-md-6">
