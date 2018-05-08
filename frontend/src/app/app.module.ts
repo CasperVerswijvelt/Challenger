@@ -19,6 +19,7 @@ import { ChallengeModule } from './challenge/challenge.module';
 import { UserModule } from './user/user.module';
 import { AuthenticationInterceptor } from './http-interceptors/AuthenticationInterceptor';
 import { BaseUrlInterceptor } from './http-interceptors/base-url.interceptors';
+import { authInterceptor } from './http-interceptors';
 
 
 
@@ -32,7 +33,7 @@ import { BaseUrlInterceptor } from './http-interceptors/base-url.interceptors';
   imports: [
     BrowserModule,ChallengeModule,UserModule,AppRoutingModule
   ],
-  providers: [BaseUrlInterceptor,AuthenticationInterceptor],
+  providers: [BaseUrlInterceptor,authInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
