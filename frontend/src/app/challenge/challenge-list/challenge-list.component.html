@@ -3,7 +3,7 @@
     <h4 style="display:inline-block">
       All challenges
     </h4>
-    <form class="col-xs-2 pull-right" style=" float:right;" [formGroup]='filterGroup' (ngSubmit)="onFilterSubmit()">
+    <form class="col-xs-2 pull-right" style=" float:right;" [formGroup]='_filterGroup' (ngSubmit)="onFilterSubmit()">
       <input type='text' placeholder='filter challenge ...' formControlName="filter">
       <button type="submit">filter</button>
     </form >
