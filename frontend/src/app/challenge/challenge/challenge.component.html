@@ -1,0 +1,14 @@
+<div class="card-header">
+  <h4 style="display: inline;">
+    <span style="font-weight: bold">Challenge: </span>{{Challenge.name}}</h4>
+  <div style="float:right;">
+    Posted on {{Challenge.dateCreated | date: "d/M/'yy - hh:mm"}}
+  </div>
+</div>
+<div class="card-body">
+  <p class="card-text">
+    <span style="font-weight: bold">Description: </span>{{Challenge.description}}</p>
+  <p class="card-text">
+    <span style="font-weight: bold">Entries: </span>{{Challenge.entries.length}}</p>
+
+</div>
