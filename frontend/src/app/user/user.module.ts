@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
-import { authInterceptor } from '../http-interceptors';
 import { BaseUrlInterceptor } from '../http-interceptors/base-url.interceptors';
+import { httpInterceptors } from '../http-interceptors';
 
 const routes = [
   { path: 'register', component: RegisterComponent },
@@ -21,6 +21,6 @@ const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [LoginComponent, RegisterComponent],
-  providers:[BaseUrlInterceptor,authInterceptor, AuthenticationService, AuthGuardService]
+  providers:[httpInterceptors, AuthenticationService, AuthGuardService]
 })
 export class UserModule { }

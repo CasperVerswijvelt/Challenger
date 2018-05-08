@@ -6,17 +6,17 @@ import { EntryComponent } from "./entry/entry.component";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ChallengeDataService } from "./challenge-data.service";
 import { RouterModule } from "@angular/router";
 import { ChallengeDetailsComponent } from './challenge-details/challenge-details.component';
 import { ChallengeResolver } from "./challenge-resolver";
 import { AddEntryComponent } from './add-entry/add-entry.component';
 
-import { authInterceptor } from '../http-interceptors/index';
 import { AuthGuardService } from "../user/auth-guard.service";
 import { AuthenticationService } from "../user/authentication.service";
 import { BaseUrlInterceptor } from "../http-interceptors/base-url.interceptors";
+import { AuthenticationInterceptor } from "../http-interceptors/AuthenticationInterceptor";
 
 const routes = [
     { path: 'challenge/list', component: ChallengeListComponent },
@@ -40,6 +40,15 @@ const routes = [
         EntryComponent,
         ChallengeDetailsComponent,
         AddEntryComponent,],
-    providers: [BaseUrlInterceptor, authInterceptor, ChallengeDataService , ChallengeResolver ]
+    providers: [{
+        provide: HTTP_INTERCEPTORS,
+        useClass: BaseUrlInterceptor,
+        multi: true
+      },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthenticationInterceptor,
+        multi: true
+      }, ChallengeDataService , ChallengeResolver ]
   })
   export class ChallengeModule { }

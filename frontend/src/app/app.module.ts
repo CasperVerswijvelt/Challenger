@@ -8,7 +8,7 @@ import { ChallengeComponent } from './challenge/challenge/challenge.component';
 import { AddChallengeComponent } from './challenge/add-challenge/add-challenge.component';
 import { ChallengeListComponent } from './challenge/challenge-list/challenge-list.component';
 import { ChallengeFilterPipe } from './challenge/challenge-filter.pipe';
-import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EntryComponent } from './challenge/entry/entry.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -19,7 +19,7 @@ import { ChallengeModule } from './challenge/challenge.module';
 import { UserModule } from './user/user.module';
 import { AuthenticationInterceptor } from './http-interceptors/AuthenticationInterceptor';
 import { BaseUrlInterceptor } from './http-interceptors/base-url.interceptors';
-import { authInterceptor } from './http-interceptors';
+import { httpInterceptors } from './http-interceptors';
 
 
 
@@ -33,7 +33,16 @@ import { authInterceptor } from './http-interceptors';
   imports: [
     BrowserModule,ChallengeModule,UserModule,AppRoutingModule
   ],
-  providers: [BaseUrlInterceptor,authInterceptor],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: BaseUrlInterceptor,
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthenticationInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
