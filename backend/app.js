@@ -17,7 +17,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 
-
+var app = express();
+let cors = require('cors');
+app.use(cors({origin: "*"}));
 
 
 
