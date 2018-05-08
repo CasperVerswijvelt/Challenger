@@ -11,7 +11,7 @@ require('./config/passport')
 var app = express();
 
 var mongoose = require('mongoose');
-mongoose.connect(process.env.CHALLENGER_DATABASE || 'mongodb://localhost/challengedb');
+mongoose.connect(process.env.CHALLENGER_DATABASE || 'mongodb://localhost/challengerdb');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

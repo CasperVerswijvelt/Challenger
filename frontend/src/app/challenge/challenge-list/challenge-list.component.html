@@ -48,7 +48,7 @@
 
 
   <p class="text-center" *ngIf="challenges==undefined || challenges.length == 0">There are no challenges yet, make one!</p>
-  <p class="text-center" *ngIf="(challenges | challengeFilter : filterValue)?.length == 0">No challenges were found matching your input.</p>
+  <p class="text-center" *ngIf="(challenges | challengeFilter : filterValue)?.length == 0 && challenges?.length > 0">No challenges were found matching your input.</p>
 
 
 

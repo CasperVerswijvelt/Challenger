@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ChallengeModule } from './challenge/challenge.module';
 import { UserModule } from './user/user.module';
+import { AuthenticationInterceptor } from './http-interceptors/AuthenticationInterceptor';
 
 
 
@@ -30,7 +31,7 @@ import { UserModule } from './user/user.module';
   imports: [
     BrowserModule,ChallengeModule,UserModule,AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthenticationInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,6 +5,7 @@ export class Entry {
            // if(_name == null || _name.length == 0)
           //   throw new Error("Naam mag niet leeg zijn");
 
+
     }
 
     get description() {
@@ -29,10 +30,10 @@ export class Entry {
     static fromJSON(json:any):Entry {
         const rec = new Entry(
             json.img,
-            json.description
+            json.description,
+            new Date(json.created)
         );
         rec._id = json._id;
-        rec._dateCreated = json.created;
         return rec;
     }
 

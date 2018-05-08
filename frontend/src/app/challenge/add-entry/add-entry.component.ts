@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChallengeDataService } from '../challenge-data.service';
 import { Entry } from '../entry/entry.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthenticationService } from '../../user/authentication.service';
 
 @Component({
   selector: 'app-add-entry',
@@ -15,7 +16,7 @@ export class AddEntryComponent implements OnInit {
   private entryForm: FormGroup;
   public ErrorMsg: String;
 
-  constructor(private fb: FormBuilder, private _recipeDataService: ChallengeDataService) { }
+  constructor(private fb: FormBuilder, private _recipeDataService: ChallengeDataService, private _authService : AuthenticationService) { }
 
   ngOnInit() {
     this.entryForm = this.fb.group({
@@ -35,6 +36,10 @@ export class AddEntryComponent implements OnInit {
           challenge for ${Challenge.name}: ${error.error}`;
       }
     );
+  }
+
+  get currentUser() {
+    return this._authService.user$;
   }
 
 
