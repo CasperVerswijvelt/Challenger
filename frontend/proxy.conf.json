@@ -1,6 +1,6 @@
 {
   "/API": {
-    "target": "https://challenger-backend.herokuapp.com/API",
+    "target": "http://localhost:3000",
     "secure": false
   } 
 }
