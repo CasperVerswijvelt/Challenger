@@ -12,7 +12,7 @@ export class ChallengeListComponent implements OnInit {
   public filterValue:string ="";
   private _challenges : Challenge[];
 
-  private _filterGroup : FormGroup;
+  public FilterGroup : FormGroup;
 
   constructor(private fb:FormBuilder,private _recipeDataService: ChallengeDataService) { 
     
@@ -20,13 +20,13 @@ export class ChallengeListComponent implements OnInit {
 
   ngOnInit() {
     this._recipeDataService.challenges.subscribe(items => this._challenges = items);
-    this._filterGroup = this.fb.group({
+    this.FilterGroup = this.fb.group({
       filter : this.fb.control('')
     })
   }
 
-  onFilterSubmit(input:string) {
-    this.filterValue = this._filterGroup.value.filter;
+  onFilterSubmit() {
+    this.filterValue = this.FilterGroup.value.filter;
   }
 
   get challenges() {
@@ -34,7 +34,7 @@ export class ChallengeListComponent implements OnInit {
   }
 
   get filterGroup() {
-    return this._filterGroup;
+    return this.FilterGroup;
   }
 
 
