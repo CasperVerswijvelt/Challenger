@@ -4,6 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var users = require('./routes/users');
+var app = express();
+let cors = require('cors');
+app.use(cors({origin: "*"}));
+
 require('./models/Challenge');
 require('./models/Entry');
 require('./models/User');
@@ -11,7 +16,7 @@ require('./config/passport')
 var app = express();
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/challengerdb');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/challengerdb');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
