@@ -7,8 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 const routes = [
-  { path: 'user/register', component: RegisterComponent },
-  { path: 'user/login', component: LoginComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent }
      
 ];
 @NgModule({
