@@ -12,12 +12,12 @@ import { HttpErrorResponse } from '@angular/common/http/http';
 export class AddChallengeComponent implements OnInit {
   @Output() public newChallenge = new EventEmitter<Challenge>();
 
-  private challenge : FormGroup;
+  private _challenge : FormGroup;
   constructor(private fb:FormBuilder, private _recipeDataService: ChallengeDataService) { }
 
 
   ngOnInit() {
-    this.challenge = this.fb.group({
+    this._challenge = this.fb.group({
       name : this.fb.control('',[Validators.required,Validators.minLength(4)]),
       description: this.fb.control('',[Validators.required,Validators.minLength(20)])
     })
@@ -25,7 +25,7 @@ export class AddChallengeComponent implements OnInit {
 
   onSubmit() {
     
-    let challenge : Challenge = new Challenge(this.challenge.value.name, this.challenge.value.description);
+    let challenge : Challenge = new Challenge(this._challenge.value.name, this._challenge.value.description);
     this.newChallenge.emit(challenge);
     this._recipeDataService.newChallengeAdded(challenge).subscribe(
       () => {},
@@ -39,6 +39,10 @@ export class AddChallengeComponent implements OnInit {
   addChallenge(name: HTMLInputElement, description: HTMLInputElement) : boolean {
     this.newChallenge.emit(new Challenge(name.value, description.value));
     return false;
+  }
+
+  get challenge(){
+    return this._challenge;
   }
 
 }
