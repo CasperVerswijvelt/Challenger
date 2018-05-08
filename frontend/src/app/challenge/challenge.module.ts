@@ -16,6 +16,7 @@ import { AddEntryComponent } from './add-entry/add-entry.component';
 import { authInterceptor } from '../http-interceptors/index';
 import { AuthGuardService } from "../user/auth-guard.service";
 import { AuthenticationService } from "../user/authentication.service";
+import { BaseUrlInterceptor } from "../http-interceptors/base-url.interceptors";
 
 const routes = [
     { path: 'challenge/list', component: ChallengeListComponent },
@@ -39,6 +40,6 @@ const routes = [
         EntryComponent,
         ChallengeDetailsComponent,
         AddEntryComponent,],
-    providers: [ authInterceptor, ChallengeDataService , ChallengeResolver ]
+    providers: [BaseUrlInterceptor, authInterceptor, ChallengeDataService , ChallengeResolver ]
   })
   export class ChallengeModule { }
