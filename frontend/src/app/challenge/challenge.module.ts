@@ -40,15 +40,6 @@ const routes = [
         EntryComponent,
         ChallengeDetailsComponent,
         AddEntryComponent,],
-    providers: [{
-        provide: HTTP_INTERCEPTORS,
-        useClass: BaseUrlInterceptor,
-        multi: true
-      },
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: AuthenticationInterceptor,
-        multi: true
-      }, ChallengeDataService , ChallengeResolver ]
+    providers: [AuthenticationService, ChallengeDataService , ChallengeResolver ]
   })
   export class ChallengeModule { }

@@ -33,16 +33,7 @@ import { httpInterceptors } from './http-interceptors';
   imports: [
     BrowserModule,ChallengeModule,UserModule,AppRoutingModule
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: BaseUrlInterceptor,
-    multi: true
-  },
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthenticationInterceptor,
-    multi: true
-  }],
+  providers: [httpInterceptors],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

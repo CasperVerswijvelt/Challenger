@@ -21,6 +21,6 @@ const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [LoginComponent, RegisterComponent],
-  providers:[httpInterceptors, AuthenticationService, AuthGuardService]
+  providers:[AuthenticationService, AuthGuardService]
 })
 export class UserModule { }
