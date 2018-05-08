@@ -13,7 +13,7 @@ import { ChallengeDetailsComponent } from './challenge-details/challenge-details
 import { ChallengeResolver } from "./challenge-resolver";
 import { AddEntryComponent } from './add-entry/add-entry.component';
 
-import { httpInterceptorProviders } from '../http-interceptors/index';
+import { authInterceptor } from '../http-interceptors/index';
 import { AuthGuardService } from "../user/auth-guard.service";
 import { AuthenticationService } from "../user/authentication.service";
 
@@ -39,6 +39,6 @@ const routes = [
         EntryComponent,
         ChallengeDetailsComponent,
         AddEntryComponent,],
-    providers: [ ChallengeDataService , ChallengeResolver, httpInterceptorProviders, AuthenticationService ]
+    providers: [ authInterceptor, ChallengeDataService , ChallengeResolver ]
   })
   export class ChallengeModule { }

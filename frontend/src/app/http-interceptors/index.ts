@@ -1,7 +1,8 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationInterceptor } from './AuthenticationInterceptor';
 
-export const httpInterceptorProviders = [
+/** Http interceptor providers in outside-in order */
+export const authInterceptor = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthenticationInterceptor,
