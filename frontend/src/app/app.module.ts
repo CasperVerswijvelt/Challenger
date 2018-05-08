@@ -18,6 +18,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ChallengeModule } from './challenge/challenge.module';
 import { UserModule } from './user/user.module';
 import { AuthenticationInterceptor } from './http-interceptors/AuthenticationInterceptor';
+import { BaseUrlInterceptor } from './http-interceptors/base-url.interceptors';
 
 
 
@@ -31,7 +32,7 @@ import { AuthenticationInterceptor } from './http-interceptors/AuthenticationInt
   imports: [
     BrowserModule,ChallengeModule,UserModule,AppRoutingModule
   ],
-  providers: [AuthenticationInterceptor],
+  providers: [BaseUrlInterceptor,AuthenticationInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
