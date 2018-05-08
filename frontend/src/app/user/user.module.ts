@@ -12,7 +12,7 @@ import { httpInterceptors } from '../http-interceptors';
 const routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent }
-     
+
 ];
 @NgModule({
   imports: [
@@ -21,6 +21,6 @@ const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [LoginComponent, RegisterComponent],
-  providers:[AuthenticationService, AuthGuardService]
+  providers: [AuthenticationService, AuthGuardService]
 })
 export class UserModule { }
