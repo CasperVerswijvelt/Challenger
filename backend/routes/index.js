@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+
 
 let mongoose = require('mongoose');
 let Challenge = mongoose.model('Challenge');
 let Entry = mongoose.model('Entry');
+
+var express = require('express');
+var router = express.Router();
+
+/*authenticatie*/
+let jwt = require('express-jwt');
+let auth = jwt({secret: process.env.CHALLENGER_BACKEND_SECRET});
+
+
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -11,7 +19,7 @@ router.get('/', function (req, res, next) {
 });
 
 
-router.get('/API/challenges/', function (req, res, next) {
+router.get('/challenges/',function (req, res, next) {
   let query = Challenge.find().populate('entries');
   query.exec(function (err, challenges) {
     if (err) { return next(err); }
@@ -19,7 +27,7 @@ router.get('/API/challenges/', function (req, res, next) {
   });
 });
 
-router.post('/API/challenges/', function (req, res, next) {
+router.post('/challenges/', auth,function (req, res, next) {
   Entry.create(req.body.entries, function (err, entr) {
     if (err) {
       return next(err);
@@ -54,11 +62,11 @@ router.param('challenge', function (req, res, next, id) {
   });
 });
 
-router.get('/API/challenge/:challenge', function (req, res, next) {
+router.get('/challenge/:challenge', function (req, res, next) {
   res.json(req.challenge);
 });
 
-router.post('/API/challenge/:challenge/entries', 
+router.post('/challenge/:challenge/entries', 
   function(req, res, next) {
   let entr = new Entry(req.body);
 
@@ -78,7 +86,7 @@ router.post('/API/challenge/:challenge/entries',
 });
 
 
-router.delete('/API/challenge/:challenge', function(req, res) {
+router.delete('/challenge/:challenge', function(req, res) {
   Challenge.remove({ _id: {$in: req.challenge.entries }}, 
     function (err) {
       if (err) return next(err);
@@ -89,7 +97,7 @@ router.delete('/API/challenge/:challenge', function(req, res) {
     })
 })
 
-router.put('/API/challenge/:challenge', function (req, res, next) {
+router.put('/challenge/:challenge', function (req, res, next) {
   req.challenge.save(function (err) {
     if (err) { return next(err); }
     res.json("updated challenge");

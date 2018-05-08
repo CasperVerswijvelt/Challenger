@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ChallengeModule } from './challenge/challenge.module';
+import { UserModule } from './user/user.module';
 
 
 
@@ -27,7 +28,7 @@ import { ChallengeModule } from './challenge/challenge.module';
     PageNotFoundComponent
   ],
   imports: [
-    BrowserModule,ChallengeModule,AppRoutingModule
+    BrowserModule,ChallengeModule,UserModule,AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,16 +6,19 @@ var logger = require('morgan');
 
 require('./models/Challenge');
 require('./models/Entry');
+require('./models/User');
+require('./config/passport')
+var app = express();
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/challengerdb');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
 
-var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/challengerdb');
+
 
 
 
@@ -29,8 +32,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/API', indexRouter);
+app.use('/API/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

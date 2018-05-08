@@ -13,9 +13,12 @@ import { ChallengeDetailsComponent } from './challenge-details/challenge-details
 import { ChallengeResolver } from "./challenge-resolver";
 import { AddEntryComponent } from './add-entry/add-entry.component';
 
+import { httpInterceptorProviders } from '../http-interceptors/index';
+import { AuthGuardService } from "../user/auth-guard.service";
+
 const routes = [
     { path: 'challenge/list', component: ChallengeListComponent },
-    { path: 'challenge/add', component: AddChallengeComponent },
+    { path: 'challenge/add',canActivate: [ AuthGuardService ], component: AddChallengeComponent },
     { path: 'challenge/:id', component: ChallengeDetailsComponent,
         resolve: { challenge: ChallengeResolver}}
   ];
