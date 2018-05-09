@@ -7,11 +7,20 @@ import { Entry } from './entry.model';
   styleUrls: ['./entry.component.css']
 })
 export class EntryComponent implements OnInit {
-  @Input() public Entry : Entry;
+  @Input() public Entry: Entry;
+  public display = 'none';
 
   constructor() { }
 
   ngOnInit() {
+    
+  }
+
+  openModal() {
+    this.display = 'block';
+  }
+  closeModal() {
+    this.display = 'none';
   }
 
 }

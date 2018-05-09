@@ -1,0 +1,23 @@
+tbody > tr:hover {
+    background-color:#e5e5e5;
+    animation-name: select;
+    animation-duration: 0.5s;
+}
+
+tbody > tr {
+    background-color:white;
+    animation-name: deselect;
+    animation-duration: 0.5s;
+}
+
+/* The animation code */
+@keyframes select {
+    from {background-color: white;}
+    to {background-color: #e5e5e5;}
+}
+
+@keyframes deselect {
+    to {background-color: white;}
+    from {background-color: #e5e5e5;}
+}
+

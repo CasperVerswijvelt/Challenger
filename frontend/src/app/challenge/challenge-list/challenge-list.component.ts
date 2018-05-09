@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Challenge } from '../challenge/challenge.model';
 import { ChallengeDataService } from '../challenge-data.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-challenge-list',
@@ -14,7 +15,7 @@ export class ChallengeListComponent implements OnInit {
 
   public FilterGroup : FormGroup;
 
-  constructor(private fb:FormBuilder,private _recipeDataService: ChallengeDataService) { 
+  constructor(private router: Router,private fb:FormBuilder,private _recipeDataService: ChallengeDataService) { 
     
   }
 
@@ -35,6 +36,10 @@ export class ChallengeListComponent implements OnInit {
 
   get filterGroup() {
     return this.FilterGroup;
+  }
+
+  routeNaarDetail(id) {
+    this.router.navigateByUrl(`/challenge/${id}`);
   }
 
 

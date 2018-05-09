@@ -1,51 +1,73 @@
-<div *ngIf="currentUser | async" class="card" style="margin:1em;">
-  <div class="card-header">
-    Enter this challenge
-  </div>
-  <div class="card-body">
+<div *ngIf="currentUser | async" style="margin:1em;">
+  <div class="inline-block">
 
-    <div class="inline-block">
-      <div *ngIf="errorMsg && errorMsg.length >0" class="alert alert-danger alert-dismissible  fade show" role="alert">
-        <strong>Something went wrong!</strong> {{errorMsg}}
-        <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                </button>-->
+    <button type="button" class="btn btn-primary" data-toggle="modal" (click)="openModal()" style="width:100%">
+      Submit your own picture to this challenge
+    </button>
+
+    <!-- Modal -->
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true" [ngStyle]="{'display':display}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form class="form-horizontal" [formGroup]='entryForm' (ngSubmit)="onSubmit()">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Enter this challenge</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+                <div *ngIf="errorMsg && errorMsg.length >0" class="alert alert-danger alert-dismissible  fade show" role="alert">
+                    <strong>Something went wrong!</strong> {{errorMsg}}
+                  </div>
+
+              <div class="form-group">
+                <label for="name">Image:</label>
+                <input [class.is-valid]="entryForm.get('img').valid" [class.is-invalid]="!entryForm.get('img').valid && entryForm.get('img').touched"
+                  autocomplete="off" class="form-control" type="text" id="img" name="img" formControlName="img" #spy placeholder="URL to your image (You can upload images with imgur and use the imgur link here!)">
+
+
+                <p *ngIf="entryForm.get('img').errors?.minlength  && entryForm.get('img').touched" class="text-danger">
+                  An image URL must be at least 4 characters!
+                </p>
+                <p *ngIf="entryForm.get('img').errors?.required && entryForm.get('img').touched" class="text-danger">
+                  You must provide an image!
+                </p>
+              </div>
+              <div class="form-group">
+                <label for="name">Image description:</label>
+                <textarea [class.is-valid]="entryForm.get('description').valid" [class.is-invalid]="!entryForm.get('description').valid && entryForm.get('description').touched"
+                  autocomplete="off" class="form-control" type="text" id="description" name="description" formControlName="description"
+                  #spy placeholder="Give a description of your image or tell everyone how this cool photo came to be">
+                </textarea>
+
+
+                <p *ngIf="entryForm.get('description').errors?.minlength  && entryForm.get('description').touched" class="text-danger">
+                  A description must be at least 20 characters!
+                </p>
+                <p *ngIf="entryForm.get('description').errors?.required && entryForm.get('description').touched" class="text-danger">
+                  You must provide a description!
+                </p>
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+              <button [disabled]="!entryForm.valid" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+
+
+
+        </div>
       </div>
-      <form class="form-horizontal" [formGroup]='entryForm' (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="name">Image:</label>
-          <input [class.is-valid]="entryForm.get('img').valid" [class.is-invalid]="!entryForm.get('img').valid && entryForm.get('img').touched"
-            autocomplete="off" class="form-control" type="text" id="img" name="img" formControlName="img" #spy placeholder="URL to your image (You can upload images with imgur and use the imgur link here!)">
-
-
-          <p *ngIf="entryForm.get('img').errors?.minlength  && entryForm.get('img').touched" class="text-danger">
-            An image URL must be at least 4 characters!
-          </p>
-          <p *ngIf="entryForm.get('img').errors?.required && entryForm.get('img').touched" class="text-danger">
-            You must provide an image!
-          </p>
-        </div>
-        <div class="form-group">
-          <label for="name">Image description:</label>
-          <textarea [class.is-valid]="entryForm.get('description').valid" [class.is-invalid]="!entryForm.get('description').valid && entryForm.get('description').touched"
-            autocomplete="off" class="form-control" type="text" id="description" name="description" formControlName="description"
-            #spy placeholder="Give a description of your image or tell everyone how this cool photo came to be">
-          </textarea>
-
-
-          <p *ngIf="entryForm.get('description').errors?.minlength  && entryForm.get('description').touched" class="text-danger">
-            A description must be at least 20 characters!
-          </p>
-          <p *ngIf="entryForm.get('description').errors?.required && entryForm.get('description').touched" class="text-danger">
-            You must provide a description!
-          </p>
-        </div>
-        <button [disabled]="!entryForm.valid" type="submit" class="btn btn-primary">Enter challenge</button>
-      </form>
     </div>
   </div>
 
+
 </div>
-<div *ngIf="!(currentUser | async)">
-  <a class="btn btn-primary">Login to submit an entry to this challenge</a>
+<div *ngIf="!(currentUser | async)" style="margin:1em;">
+  <button class="btn btn-primary" routerLink="/login" style="width:100%">Login to submit an entry to this challenge</button>
 </div>

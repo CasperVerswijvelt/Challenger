@@ -1,4 +1,6 @@
-<div *ngIf='errorMsg' class="ui error message">{{errorMsg}}</div>
+<div *ngIf="errorMsg && errorMsg.length >0" class="alert alert-danger alert-dismissible  fade show" role="alert">
+    <strong>Login failed</strong> {{errorMsg}}
+  </div>
 <body class="text-center">
   <form class="form-signin" asp-route-returnurl="/Sessie/Beheer" method="post" style="width: 100%;
 max-width: 330px;
@@ -22,7 +24,7 @@ margin: auto;" [formGroup]='user' (ngSubmit)='onSubmit()'>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
       <br>
-      <a class='item' routerLink="/register">register</a>
+      <a class='item' routerLink="/register">No account yet? Register here</a>
 
 
 

@@ -35,11 +35,8 @@ router.post('/challenges/', auth,function (req, res, next) {
     if (err) {
       return next(err);
     }
-
     let chal = new Challenge(req.body);
     chal.author = req.user._id;
-
-
     chal.save(function (err, ch) {
       if(err) {
         return next(err);

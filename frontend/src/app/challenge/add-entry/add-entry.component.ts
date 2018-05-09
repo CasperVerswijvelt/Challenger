@@ -17,6 +17,7 @@ export class AddEntryComponent implements OnInit {
   @Output() public newEntry = new EventEmitter<Entry>();
   private entryForm: FormGroup;
   public errorMsg: String;
+  public display: string = 'none';
 
   constructor(private router: Router, private fb: FormBuilder, private _recipeDataService: ChallengeDataService, private _authService: AuthenticationService) { }
 
@@ -26,12 +27,12 @@ export class AddEntryComponent implements OnInit {
       img: this.fb.control('', [Validators.required, Validators.minLength(4)])
     })
   }
- 
+
   onSubmit() {
 
 
     let entry = new Entry(this.entryForm.value.description, this.entryForm.value.img);
-    if(this.IsImageOk(entry.img)) {
+    if (this.IsImageOk(entry.img)) {
       this.errorMsg = null;
       this.newEntry.emit(entry);
     } else {
@@ -40,27 +41,35 @@ export class AddEntryComponent implements OnInit {
     }
   }
 
- IsImageOk = function(imgSrc) {
-   let img = new Image();
-   try{
-    img.src = imgSrc;
-   } catch(err) {
-     return false;
-   }
-    
+  IsImageOk = function (imgSrc) {
+    let img = new Image();
+    try {
+      img.src = imgSrc;
+    } catch (err) {
+      return false;
+    }
+
     if (img.naturalWidth === 0) {
       console.log("width");
-        return false;
+      return false;
     }
     if (!img.complete) {
       console.log("incomplete");
-        return false;
+      return false;
     }
     return true;
-}
+  }
 
   get currentUser() {
     return this._authService.user$;
+  }
+
+
+  openModal() {
+    this.display = 'block';
+  }
+  closeModal() {
+    this.display = 'none';
   }
 
 

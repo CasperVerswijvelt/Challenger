@@ -36,7 +36,6 @@ export class ChallengeComponent implements OnInit {
   public state:boolean = false;
 
   ngOnInit() {
-    console.log(this.Challenge);
   }
 
 

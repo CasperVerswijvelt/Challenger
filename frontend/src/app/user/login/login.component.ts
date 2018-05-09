@@ -63,9 +63,15 @@ export class LoginComponent implements OnInit {
               this.user.value.username
             }: ${err.error.message}`;
           } else {
-            this.errorMsg = `Error ${err.status} while trying to login user ${
-              this.user.value.username
-            }: ${err.error}`;
+
+            if(err.status === 401) {
+              this.errorMsg = "Either username or password was incorrect"
+            } else {
+              this.errorMsg = `Error ${err.status} while trying to login user ${
+                this.user.value.username
+              }: ${err.error}`;
+            }
+            
           }
         }
       );

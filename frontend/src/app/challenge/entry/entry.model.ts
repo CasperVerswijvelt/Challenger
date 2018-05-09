@@ -43,29 +43,7 @@ export class Entry {
     get id(): string {
         return this._id;
     }
-    testImage(url, callback, timeout) {
-        timeout = timeout || 5000;
-        var timedOut = false, timer;
-        var img = new Image();
-        img.onerror = img.onabort = function () {
-            if (!timedOut) {
-                clearTimeout(timer);
-                callback(url, "error");
-            }
-        };
-        img.onload = function () {
-            if (!timedOut) {
-                clearTimeout(timer);
-                callback(url, "success");
-            }
-        };
-        img.src = url;
-        timer = setTimeout(function () {
-            timedOut = true;
-            // reset .src to invalid URL so it stops previous
-            // loading, but doesn't trigger new load
-            img.src = "//!!!!/test.jpg";
-            callback(url, "timeout");
-        }, timeout);
-    }
+    
+
+    
 }

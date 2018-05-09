@@ -8,20 +8,6 @@
       <button type="submit">filter</button>
     </form >
   </div>
-  
-<!-- <div class="col-xs-2">
-
-    <select class="form-control" ng-model="sortBy">
-      <option value="None">-- Sort by --</option>
-
-      <option value="Name">Name</option>
-      <option value="Address">Entries</option>
-
-    </select>
-  </div> -->
-
-
-
       <table class="table">
           <thead>
             <tr>
@@ -32,7 +18,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let chal of challenges | challengeFilter : filterValue | sortByEntries">
+            <tr *ngFor="let chal of challenges | challengeFilter : filterValue | sortByEntries" >
 
                 <th scope="row">{{chal?.entries?.length || "0"}}</th>
                 <td>{{chal.name}}</td>
