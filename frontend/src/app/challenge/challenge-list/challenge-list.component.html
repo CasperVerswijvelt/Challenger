@@ -25,18 +25,18 @@
       <table class="table">
           <thead>
             <tr>
-              <th scope="col">Inzendingen</th>
-              <th scope="col">Naam</th>
-              <th scope="col">Auteur</th>
-              <th scope="col">Gepost</th>
+              <th scope="col">Entries</th>
+              <th scope="col">Challenge</th>
+              <th scope="col">Author</th>
+              <th scope="col">Posted on</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let chal of challenges | challengeFilter : filterValue">
+            <tr *ngFor="let chal of challenges | challengeFilter : filterValue | sortByEntries">
 
                 <th scope="row">{{chal?.entries?.length || "0"}}</th>
                 <td>{{chal.name}}</td>
-                <td>Casper Verswijvelt</td>
+                <td>{{chal.author}}</td>
                 <td>{{chal.dateCreated | date: "d/M/'yy - hh:mm"}} </td>
                 <td>
                     <a routerLink="/challenge/{{chal.id}}" class="btn btn-primary">Tell me more</a>

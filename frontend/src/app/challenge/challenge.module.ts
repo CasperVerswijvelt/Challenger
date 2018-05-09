@@ -17,6 +17,8 @@ import { AuthGuardService } from "../user/auth-guard.service";
 import { AuthenticationService } from "../user/authentication.service";
 import { BaseUrlInterceptor } from "../http-interceptors/base-url.interceptors";
 import { AuthenticationInterceptor } from "../http-interceptors/AuthenticationInterceptor";
+import { SortByEntriesPipe } from './sort-by-entries.pipe';
+import { LoginPartialComponent } from '../login-partial/login-partial.component';
 
 const routes = [
     { path: 'challenge/list', component: ChallengeListComponent },
@@ -39,7 +41,8 @@ const routes = [
         ChallengeFilterPipe,
         EntryComponent,
         ChallengeDetailsComponent,
-        AddEntryComponent,],
+        AddEntryComponent,
+        SortByEntriesPipe],
     providers: [AuthenticationService, ChallengeDataService , ChallengeResolver ]
   })
   export class ChallengeModule { }

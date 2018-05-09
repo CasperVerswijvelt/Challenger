@@ -3,7 +3,8 @@ let mongoose = require('mongoose');
 let EntrySchema = new mongoose.Schema({
   description:String,
   created:Date,
-  img: String
+  img: String,
+  author: String
   
 });	
 

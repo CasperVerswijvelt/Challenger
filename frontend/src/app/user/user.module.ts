@@ -8,10 +8,13 @@ import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 import { BaseUrlInterceptor } from '../http-interceptors/base-url.interceptors';
 import { httpInterceptors } from '../http-interceptors';
+import { LogoutComponent } from '../logout/logout.component';
+import { LoginPartialComponent } from '../login-partial/login-partial.component';
 
 const routes = [
   { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent }
 
 ];
 @NgModule({

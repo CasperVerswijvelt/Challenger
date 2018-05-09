@@ -4,35 +4,43 @@
       </div>
   <div class="card-body">
       
-        <form class="form-horizontal" [formGroup]='entryForm' (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="name">Image:</label>
-            <input autocomplete="off" class="form-control" type="text" id="img" name="img" formControlName="img" #spy placeholder="URL to your image (You can upload images with imgur and use the imgur link here!)">
-      
-      
-            <p *ngIf="entryForm.get('img').errors?.minlength  && entryForm.get('img').touched" class="text-danger">
-              An image URL must be at least 4 characters!
-            </p>
-            <p *ngIf="entryForm.get('img').errors?.required && entryForm.get('img').touched" class="text-danger">
-              You must provide an image!
-            </p>
-          </div>
-          <div class="form-group">
-            <label for="name">Image description:</label>
-            <textarea autocomplete="off" class="form-control" type="text" id="description" name="description" formControlName="description" #spy 
-            placeholder="Give a description of your image or tell everyone how this cool photo came to be">
-            </textarea>
-      
-      
-            <p *ngIf="entryForm.get('img').errors?.minlength  && entryForm.get('img').touched" class="text-danger">
-              A description must be at least 20 characters!
-            </p>
-            <p *ngIf="entryForm.get('img').errors?.required && entryForm.get('img').touched" class="text-danger">
-              You must provide a description!
-            </p>
-          </div>
-          <button type="submit" class="btn btn-primary">Enter challenge</button>
-        </form>
+        <div class="inline-block" >
+          <form class="form-horizontal" [formGroup]='entryForm' (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Image:</label>
+              <input [class.is-valid]="entryForm.get('img').valid" 
+              [class.is-invalid]="!entryForm.get('img').valid && entryForm.get('img').touched"
+               autocomplete="off" class="form-control" type="text" id="img" name="img" formControlName="img" #spy placeholder="URL to your image (You can upload images with imgur and use the imgur link here!)">
+        
+        
+              <p *ngIf="entryForm.get('img').errors?.minlength  && entryForm.get('img').touched" class="text-danger">
+                An image URL must be at least 4 characters!
+              </p>
+              <p *ngIf="entryForm.get('img').errors?.required && entryForm.get('img').touched" class="text-danger">
+                You must provide an image!
+              </p>
+            </div>
+            <div class="form-group">
+              <label for="name">Image description:</label>
+              <textarea [class.is-valid]="entryForm.get('description').valid" 
+              [class.is-invalid]="!entryForm.get('description').valid && entryForm.get('description').touched"
+              autocomplete="off" class="form-control" type="text" id="description" name="description" formControlName="description" #spy 
+              placeholder="Give a description of your image or tell everyone how this cool photo came to be">
+              </textarea>
+        
+        
+              <p *ngIf="entryForm.get('description').errors?.minlength  && entryForm.get('description').touched" class="text-danger">
+                A description must be at least 20 characters!
+              </p>
+              <p *ngIf="entryForm.get('description').errors?.required && entryForm.get('description').touched" class="text-danger">
+                You must provide a description!
+              </p>
+            </div>
+            <button type="submit" class="btn btn-primary">Enter challenge</button>
+          </form>
+        </div>
+        <div class="card" style="width: 20%">
+        </div>
   </div>
 
 </div>

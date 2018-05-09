@@ -34,11 +34,7 @@ router.post('/challenges/', auth,function (req, res, next) {
       return next(err);
     }
 
-    let chal = new Challenge({
-      name: req.body.name,
-      description: req.body.description,
-      created: req.body.created
-    });
+    let chal = new Challenge(req.body);
 
 
     chal.save(function (err, ch) {
@@ -67,7 +63,7 @@ router.get('/challenge/:challenge', function (req, res, next) {
   res.json(req.challenge);
 });
 
-router.post('/challenge/:challenge/entries', 
+router.post('/challenge/:challenge/entries', auth,
   function(req, res, next) {
   let entr = new Entry(req.body);
 

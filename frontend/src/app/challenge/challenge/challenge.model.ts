@@ -5,7 +5,7 @@ export class Challenge {
     private _id;
     private _entries : Entry[];
 
-    constructor(private _name: string, private _description: string, private _dateCreated: Date = new Date()) {
+    constructor(private _name: string, private _description: string,private _author, private _dateCreated: Date = new Date()) {
            // if(_name == null || _name.length == 0)
           //   throw new Error("Naam mag niet leeg zijn");
 
@@ -24,6 +24,9 @@ export class Challenge {
     get entries() {
         return this._entries;
     }
+    get author() {
+        return this._author;
+    }
 
     addEntry(entr : Entry) {
         this._entries.push(entr);
@@ -34,16 +37,18 @@ export class Challenge {
     }
 
     toJSON() {
-        return {
+        let json =  {
           id:this._id,
           name: this._name,
           description:this._description,
           created:this._dateCreated,
+          author:this._author,
           entries:this.entries
         };
+        return json;
     }
     static fromJSON(json:any):Challenge {
-        const rec = new Challenge(json.name, json.description,new Date(json.created));
+        const rec = new Challenge(json.name, json.description,json.author,new Date(json.created));
         rec._id = json._id;
         rec._entries = json.entries;
         return rec;

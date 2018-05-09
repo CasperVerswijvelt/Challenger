@@ -10,10 +10,10 @@ export class BaseUrlInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if(BACKEND_URL) {
-      var clone = req.clone({
+      return next.handle(req.clone({
         url: `${BACKEND_URL}${req.url}`
-      });
+      }));
     }
-    return next.handle(clone);
+    return next.handle(req);
   }
 }

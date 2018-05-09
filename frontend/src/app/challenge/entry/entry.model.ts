@@ -1,7 +1,7 @@
 export class Entry {
     private _id;
 
-    constructor(private _description: string, private _img : string, private _dateCreated: Date = new Date()) {
+    constructor(private _description: string, private _img : string,private _author, private _created: Date = new Date()) {
            // if(_name == null || _name.length == 0)
           //   throw new Error("Naam mag niet leeg zijn");
 
@@ -14,16 +14,21 @@ export class Entry {
     get img() {
         return this._img;
     }
-    get dateCreated() {
-        return this._dateCreated;
+    get created() {
+        return this._created;
+    }
+    get author() {
+        return this._author;
     }
 
     toJSON() {
+        console.log(this);
         return {
           id:this._id,
           description:this._description,
           img: this._img,
-          created:this._dateCreated
+          created:this._created,
+          author:this._author
         };
     }
 
@@ -31,6 +36,7 @@ export class Entry {
         const rec = new Entry(
             json.img,
             json.description,
+            json.author,
             new Date(json.created)
         );
         rec._id = json._id;

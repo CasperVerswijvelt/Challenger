@@ -33,8 +33,7 @@ export class ChallengeDataService {
     .post(`${this._appUrl}challenges/`, challenge)
     .pipe(
       map(
-        (item: any): Challenge =>
-          new Challenge(item.name, item.description, item.created)
+        Challenge.fromJSON
       )
     );
   }

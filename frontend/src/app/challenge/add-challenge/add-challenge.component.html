@@ -7,7 +7,10 @@
             
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input autocomplete="off" class="form-control" type="text" id="name" name="name" placeholder="Name of the challenge" formControlName="name" #spy >
+                        <input [class.is-valid]="challenge.get('name').valid" 
+                                [class.is-invalid]="!challenge.get('name').valid && challenge.get('name').touched" 
+                                autocomplete="off" class="form-control" type="text" id="name" name="name" 
+                                placeholder="Name of the challenge" formControlName="name" #spy >
                 
                 
                         <p *ngIf="challenge.get('name').errors?.minlength  && challenge.get('name').touched" class="text-danger">
@@ -21,7 +24,9 @@
             
                     <div class="form-group">
                         <label for="description">Description:</label>
-                        <textarea autocomplete="off" class="form-control" type="text" id="description" name="description" placeholder="Extensive description of the challenge" formControlName="description"></textarea>
+                        <textarea [class.is-valid]="challenge.get('description').valid" 
+                                [class.is-invalid]="!challenge.get('description').valid && challenge.get('description').touched"
+                        autocomplete="off" class="form-control" type="text" id="description" name="description" placeholder="Extensive description of the challenge" formControlName="description"></textarea>
                         <p *ngIf="challenge.get('description').errors?.minlength && challenge.get('description').touched"  class="text-danger">
                             A challenge description must be at least 20 characters long!
                         </p>
@@ -36,7 +41,4 @@
                 </button>
               </form>
   </div>
-  REMOVE {{ challenge.value | json }} {{ challenge.valid }} 
-  {{challenge.get("name").errors | json}}
-  {{spy.className}}
 </div>

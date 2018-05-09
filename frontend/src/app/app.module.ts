@@ -20,6 +20,8 @@ import { UserModule } from './user/user.module';
 import { AuthenticationInterceptor } from './http-interceptors/AuthenticationInterceptor';
 import { BaseUrlInterceptor } from './http-interceptors/base-url.interceptors';
 import { httpInterceptors } from './http-interceptors';
+import { LoginPartialComponent } from './login-partial/login-partial.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 
@@ -28,10 +30,12 @@ import { httpInterceptors } from './http-interceptors';
   declarations: [
     AppComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoginPartialComponent,
+    LogoutComponent
   ],
   imports: [
-    BrowserModule,ChallengeModule,UserModule,AppRoutingModule
+    UserModule,BrowserModule,ChallengeModule,AppRoutingModule
   ],
   providers: [httpInterceptors],
   bootstrap: [AppComponent]

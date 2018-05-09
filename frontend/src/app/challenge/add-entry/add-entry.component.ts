@@ -27,8 +27,7 @@ export class AddEntryComponent implements OnInit {
 
   onSubmit() {
 
-    let entry: Entry = new Entry(this.entryForm.value.description, this.entryForm.value.img);
-    console.log(entry);
+    let entry: Entry = new Entry(this.entryForm.value.description, this.entryForm.value.img, this.currentUser.getValue());
     this._recipeDataService.addEntryToChallenge(entry, this.Challenge).subscribe(
       () => { },
       (error: HttpErrorResponse) => {
@@ -41,6 +40,7 @@ export class AddEntryComponent implements OnInit {
   get currentUser() {
     return this._authService.user$;
   }
+
 
 
 }

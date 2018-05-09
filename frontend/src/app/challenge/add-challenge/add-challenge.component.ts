@@ -3,6 +3,7 @@ import { Challenge } from '../challenge/challenge.model';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ChallengeDataService } from '../challenge-data.service';
 import { HttpErrorResponse } from '@angular/common/http/http';
+import { AuthenticationService } from '../../user/authentication.service';
 
 @Component({
   selector: 'app-add-challenge',
@@ -13,7 +14,7 @@ export class AddChallengeComponent implements OnInit {
   @Output() public newChallenge = new EventEmitter<Challenge>();
 
   private _challenge : FormGroup;
-  constructor(private fb:FormBuilder, private _recipeDataService: ChallengeDataService) { }
+  constructor(private _authService : AuthenticationService,private fb:FormBuilder, private _recipeDataService: ChallengeDataService) { }
 
 
   ngOnInit() {
@@ -25,7 +26,8 @@ export class AddChallengeComponent implements OnInit {
 
   onSubmit() {
     
-    let challenge : Challenge = new Challenge(this._challenge.value.name, this._challenge.value.description);
+    let challenge : Challenge = new Challenge(this._challenge.value.name, this._challenge.value.description,this.currentUser.getValue());
+    console.log(challenge);
     this.newChallenge.emit(challenge);
     this._recipeDataService.newChallengeAdded(challenge).subscribe(
       () => {},
@@ -36,13 +38,14 @@ export class AddChallengeComponent implements OnInit {
     );
   }
 
-  addChallenge(name: HTMLInputElement, description: HTMLInputElement) : boolean {
-    this.newChallenge.emit(new Challenge(name.value, description.value));
-    return false;
-  }
 
   get challenge(){
     return this._challenge;
   }
+
+  get currentUser() {
+    return this._authService.user$;
+  }
+  
 
 }

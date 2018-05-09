@@ -38,9 +38,6 @@ export class ChallengeComponent implements OnInit {
   ngOnInit() {
   }
 
-  constructor() {
-    this.Challenge = new Challenge("Naam","Beschrijving");
-  }
 
  public toggleState() {
   this.state = !this.state;
