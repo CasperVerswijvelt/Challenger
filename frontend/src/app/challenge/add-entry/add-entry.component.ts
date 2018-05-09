@@ -64,6 +64,11 @@ export class AddEntryComponent implements OnInit {
     return this._authService.user$;
   }
 
+  naarLogin() {
+    this._authService.redirectUrl = this.router.url;
+    this.router.navigateByUrl("/login");
+  }
+
 
   openModal() {
     this.display = 'block';

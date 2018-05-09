@@ -69,5 +69,5 @@
 
 </div>
 <div *ngIf="!(currentUser | async)" style="margin:1em;">
-  <button class="btn btn-primary" routerLink="/login" style="width:100%">Login to submit an entry to this challenge</button>
+  <button class="btn btn-primary" (click)="naarLogin()" style="width:100%">Login to submit an entry to this challenge</button>
 </div>

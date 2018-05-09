@@ -1,4 +1,4 @@
 
-<a *ngIf="!(currentUser | async)" style= "cursor: pointer; border-radius: 1.5em" class="nav-link btn btn-info text-light" routerLink="/login">Login</a>
+<a *ngIf="!(currentUser | async)" style= "cursor: pointer; border-radius: 1.5em" class="nav-link btn btn-info text-light" (click)="naarLogin()">Login</a>
 <app-logout *ngIf="(currentUser | async)"></app-logout>
 
