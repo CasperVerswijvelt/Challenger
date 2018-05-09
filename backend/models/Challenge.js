@@ -4,7 +4,8 @@ let ChallengeSchema = new mongoose.Schema({
   name:String,
   description:String,
   created:Date,
-  author: String,
+  author: {type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User'},
   entries: [{type: mongoose.Schema.Types.ObjectId, 
     ref: 'Entry'}],
   

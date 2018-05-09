@@ -4,7 +4,8 @@ let EntrySchema = new mongoose.Schema({
   description:String,
   created:Date,
   img: String,
-  author: String
+  author: {type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User'}
   
 });	
 

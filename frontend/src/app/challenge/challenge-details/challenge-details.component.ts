@@ -12,6 +12,7 @@ import { FormBuilder } from '@angular/forms';
 export class ChallengeDetailsComponent implements OnInit {
   private _challenge : Challenge;
   private entryForm : FormBuilder;
+  public errorMsg : string;
 
   constructor(private route: ActivatedRoute,private challengeDataService: ChallengeDataService) {
     this.route.data.subscribe(item => 
@@ -23,6 +24,19 @@ export class ChallengeDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+
+  addEntry(entry) {
+        this.challengeDataService.addEntryToChallenge(entry, this.challenge).subscribe(
+      suc=> { 
+        this._challenge = suc;
+      },
+      error => {
+        this.errorMsg = `Error ${error.status} while adding
+          challenge for ${Challenge.name}: ${error.error}`;
+      }
+    );
   }
 
 

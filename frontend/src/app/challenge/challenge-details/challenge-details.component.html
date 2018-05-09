@@ -3,11 +3,11 @@
   
   <div class="card" style="margin:0">
 
-    <app-add-entry [Challenge]="challenge"></app-add-entry>
+    <app-add-entry (newEntry)="addEntry($event)"></app-add-entry>
 
     
-    <app-entry *ngFor="let entry of challenge.entries" [Entry]="entry"></app-entry>
-    <h4 *ngIf="challenge.entries?.length==0">There are ne entries to this challenge yet, make one!</h4>
+    <app-entry *ngFor="let entry of (challenge.entries | entrySortByDate)" [Entry]="entry"></app-entry>
+    <h4 *ngIf="challenge.entries?.length==0" class="text-center" style="padding: 1.5em;">There are no entries to this challenge yet, submit one!</h4>
   </div>
 
 

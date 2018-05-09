@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Challenge } from '../challenge/challenge.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChallengeDataService } from '../challenge-data.service';
 import { Entry } from '../entry/entry.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../../user/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-entry',
@@ -13,10 +14,11 @@ import { AuthenticationService } from '../../user/authentication.service';
 })
 export class AddEntryComponent implements OnInit {
   @Input() Challenge: Challenge;
+  @Output() public newEntry = new EventEmitter<Entry>();
   private entryForm: FormGroup;
-  public ErrorMsg: String;
+  public errorMsg: String;
 
-  constructor(private fb: FormBuilder, private _recipeDataService: ChallengeDataService, private _authService : AuthenticationService) { }
+  constructor(private router: Router, private fb: FormBuilder, private _recipeDataService: ChallengeDataService, private _authService: AuthenticationService) { }
 
   ngOnInit() {
     this.entryForm = this.fb.group({
@@ -24,18 +26,38 @@ export class AddEntryComponent implements OnInit {
       img: this.fb.control('', [Validators.required, Validators.minLength(4)])
     })
   }
-
+ 
   onSubmit() {
 
-    let entry: Entry = new Entry(this.entryForm.value.description, this.entryForm.value.img, this.currentUser.getValue());
-    this._recipeDataService.addEntryToChallenge(entry, this.Challenge).subscribe(
-      () => { },
-      (error: HttpErrorResponse) => {
-        this.ErrorMsg = `Error ${error.status} while adding
-          challenge for ${Challenge.name}: ${error.error}`;
-      }
-    );
+
+    let entry = new Entry(this.entryForm.value.description, this.entryForm.value.img);
+    if(this.IsImageOk(entry.img)) {
+      this.errorMsg = null;
+      this.newEntry.emit(entry);
+    } else {
+      console.log("De error hieronder toont dat de ingegeven url niet correct is, mag genegeerd worden.")
+      this.errorMsg = "The provided URL does not point to an image"
+    }
   }
+
+ IsImageOk = function(imgSrc) {
+   let img = new Image();
+   try{
+    img.src = imgSrc;
+   } catch(err) {
+     return false;
+   }
+    
+    if (img.naturalWidth === 0) {
+      console.log("width");
+        return false;
+    }
+    if (!img.complete) {
+      console.log("incomplete");
+        return false;
+    }
+    return true;
+}
 
   get currentUser() {
     return this._authService.user$;

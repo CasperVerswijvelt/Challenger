@@ -4,8 +4,9 @@ export class Challenge {
 
     private _id;
     private _entries : Entry[];
+    private _author;
 
-    constructor(private _name: string, private _description: string,private _author, private _dateCreated: Date = new Date()) {
+    constructor(private _name: string, private _description: string, private _dateCreated: Date = new Date()) {
            // if(_name == null || _name.length == 0)
           //   throw new Error("Naam mag niet leeg zijn");
 
@@ -48,9 +49,10 @@ export class Challenge {
         return json;
     }
     static fromJSON(json:any):Challenge {
-        const rec = new Challenge(json.name, json.description,json.author,new Date(json.created));
+        const rec = new Challenge(json.name, json.description,new Date(json.created));
         rec._id = json._id;
         rec._entries = json.entries;
+        rec._author = json.author;
         return rec;
     }
 

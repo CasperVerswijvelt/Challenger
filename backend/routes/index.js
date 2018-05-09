@@ -21,7 +21,9 @@ router.get('/', function (req, res, next) {
 
 
 router.get('/challenges/',function (req, res, next) {
-  let query = Challenge.find().populate('entries');
+  let query = Challenge.find()
+    .populate({ path: 'author', select: 'username' })
+    .populate({ path: 'entries' ,populate : {path : 'author' , select: 'username'}})
   query.exec(function (err, challenges) {
     if (err) { return next(err); }
     res.json(challenges);
@@ -35,6 +37,7 @@ router.post('/challenges/', auth,function (req, res, next) {
     }
 
     let chal = new Challenge(req.body);
+    chal.author = req.user._id;
 
 
     chal.save(function (err, ch) {
@@ -50,7 +53,9 @@ router.post('/challenges/', auth,function (req, res, next) {
 
 
 router.param('challenge', function (req, res, next, id) {
-  let query = Challenge.findById(id).populate("entries");
+  let query = Challenge.findById(id)
+  .populate({ path: 'author', select: 'username' })
+    .populate({ path: 'entries' ,populate : {path : 'author' , select: 'username'}});
   query.exec(function (err, challenge) {
     if (err) { return next(err); }
     if (!challenge) { return next(new Error('not found ' + id)); }
@@ -66,6 +71,7 @@ router.get('/challenge/:challenge', function (req, res, next) {
 router.post('/challenge/:challenge/entries', auth,
   function(req, res, next) {
   let entr = new Entry(req.body);
+  entr.author = req.user._id;
 
   entr.save(function(err, entry) {
     if (err) return next(err);
@@ -77,7 +83,7 @@ router.post('/challenge/:challenge/entries', auth,
         return next(err);
       }
       
-      res.json(entry);
+      res.json(req.challenge);
     })
   });
 });

@@ -1,6 +1,12 @@
 <div class="card">
         <h4 class="card-header">Create challenge</h4>
   <div class="card-body">
+        <div *ngIf="errorMsg && errorMsg.length >0" class="alert alert-danger alert-dismissible  fade show" role="alert">
+                <strong>Something went wrong!</strong> {{errorMsg}}
+                <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                </button>-->
+        </div>
         <form class="form-horizontal" [formGroup]='challenge' (ngSubmit)="onSubmit()">
     
                 <div class="field">

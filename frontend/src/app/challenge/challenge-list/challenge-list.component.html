@@ -36,7 +36,7 @@
 
                 <th scope="row">{{chal?.entries?.length || "0"}}</th>
                 <td>{{chal.name}}</td>
-                <td>{{chal.author}}</td>
+                <td>{{chal.author.username}}</td>
                 <td>{{chal.dateCreated | date: "d/M/'yy - hh:mm"}} </td>
                 <td>
                     <a routerLink="/challenge/{{chal.id}}" class="btn btn-primary">Tell me more</a>
@@ -47,7 +47,7 @@
 
 
 
-  <p class="text-center" *ngIf="challenges==undefined || challenges.length == 0">There are no challenges yet, make one!</p>
+  <a class="text-center" routerLink="/challenge/add" *ngIf="challenges==undefined || challenges.length == 0">There are no challenges yet, make one! <p></p></a>
   <p class="text-center" *ngIf="(challenges | challengeFilter : filterValue)?.length == 0 && challenges?.length > 0">No challenges were found matching your input.</p>
 
 

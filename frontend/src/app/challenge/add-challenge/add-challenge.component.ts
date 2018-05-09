@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { ChallengeDataService } from '../challenge-data.service';
 import { HttpErrorResponse } from '@angular/common/http/http';
 import { AuthenticationService } from '../../user/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-challenge',
@@ -12,9 +13,10 @@ import { AuthenticationService } from '../../user/authentication.service';
 })
 export class AddChallengeComponent implements OnInit {
   @Output() public newChallenge = new EventEmitter<Challenge>();
+  public errorMsg : string;
 
   private _challenge : FormGroup;
-  constructor(private _authService : AuthenticationService,private fb:FormBuilder, private _recipeDataService: ChallengeDataService) { }
+  constructor(private router: Router,private fb:FormBuilder, private _recipeDataService: ChallengeDataService) { }
 
 
   ngOnInit() {
@@ -26,16 +28,19 @@ export class AddChallengeComponent implements OnInit {
 
   onSubmit() {
     
-    let challenge : Challenge = new Challenge(this._challenge.value.name, this._challenge.value.description,this.currentUser.getValue());
+    let challenge : Challenge = new Challenge(this._challenge.value.name, this._challenge.value.description);
     console.log(challenge);
     this.newChallenge.emit(challenge);
     this._recipeDataService.newChallengeAdded(challenge).subscribe(
-      () => {},
-      (error: HttpErrorResponse) => {
-        error.error.errorMsg = `Error ${error.status} while adding
-          challenge for ${challenge.name}: ${error.error}`;
+      suc => {
+        this.router.navigate([`/challenge/${suc.id}`]);
+      },
+      err => {
+        this.errorMsg = `Error ${err.status} while adding
+          challenge for ${challenge.name}: ${err.error}`;
       }
     );
+    
   }
 
 
@@ -43,9 +48,6 @@ export class AddChallengeComponent implements OnInit {
     return this._challenge;
   }
 
-  get currentUser() {
-    return this._authService.user$;
-  }
   
 
 }

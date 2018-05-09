@@ -19,6 +19,7 @@ import { BaseUrlInterceptor } from "../http-interceptors/base-url.interceptors";
 import { AuthenticationInterceptor } from "../http-interceptors/AuthenticationInterceptor";
 import { SortByEntriesPipe } from './sort-by-entries.pipe';
 import { LoginPartialComponent } from '../login-partial/login-partial.component';
+import { EntrySortByDatePipe } from './entry-sort-by-date.pipe';
 
 const routes = [
     { path: 'challenge/list', component: ChallengeListComponent },
@@ -42,7 +43,8 @@ const routes = [
         EntryComponent,
         ChallengeDetailsComponent,
         AddEntryComponent,
-        SortByEntriesPipe],
+        SortByEntriesPipe,
+        EntrySortByDatePipe],
     providers: [AuthenticationService, ChallengeDataService , ChallengeResolver ]
   })
   export class ChallengeModule { }
