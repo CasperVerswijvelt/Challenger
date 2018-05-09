@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   private _challenges: Challenge[];
   ngOnInit(): void {
   }
-
+  public isMenuCollapse:boolean = true;;
 
   constructor(private _authService: AuthenticationService) {
   }
