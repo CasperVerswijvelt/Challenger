@@ -6,7 +6,7 @@ import { Entry } from '../entry/entry.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../../user/authentication.service';
 import { Router } from '@angular/router';
-
+declare var $: any;
 @Component({
   selector: 'app-add-entry',
   templateUrl: './add-entry.component.html',
@@ -18,6 +18,7 @@ export class AddEntryComponent implements OnInit {
   private entryForm: FormGroup;
   public errorMsg: String;
   public display: string = 'none';
+  
 
   constructor(private router: Router, private fb: FormBuilder, private _recipeDataService: ChallengeDataService, private _authService: AuthenticationService) { }
 

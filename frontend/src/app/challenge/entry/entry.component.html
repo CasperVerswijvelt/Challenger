@@ -8,13 +8,13 @@
       </div>
     </div>
     <div class="col-md-6" style="cursor: pointer" >
-      <div data-toggle="modal" [attr.data-target]="'#imagemodal' + Entry._id" class="card-img-bottom" style="height: 20em ; background-size: cover;background-repeat: no-repeat; background-position: center;"
+      <div data-toggle="modal" [attr.data-target]="'#imagemodal' + Entry.id" class="card-img-bottom" style="height: 20em ; background-size: cover;background-repeat: no-repeat; background-position: center;"
         [ngStyle]="{'background-image':'url( '+Entry.img+' )'}">
       </div>
     </div>
   
 
-    <div class="modal fade" id="imagemodal{{Entry._id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" [attr.id]="'imagemodal' + Entry.id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog  modal-dialog-centered modal-lg" data-dismiss="modal">
         <div class="modal-content"  >     
             <div class="modal-header">

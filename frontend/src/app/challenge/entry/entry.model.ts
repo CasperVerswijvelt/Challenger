@@ -21,6 +21,9 @@ export class Entry {
     get author() {
         return this._author;
     }
+    get id() {
+        return this._id;
+    }
 
     toJSON() {
         return {
@@ -43,9 +46,6 @@ export class Entry {
         return rec;
     }
 
-    get id(): string {
-        return this._id;
-    }
     
 
     
