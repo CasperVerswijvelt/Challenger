@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 let Challenge = mongoose.model('Challenge');
 let Entry = mongoose.model('Entry');
+let User = mongoose.model('User');
 
 
 var express = require('express');
@@ -89,6 +90,66 @@ router.get('/challenge/:challenge', function (req, res, next) {
   res.json(req.challenge);
 });
 
+router.param('user', function (req, res, next, id) {
+  let query = User.findById(id);
+  query.exec(function (err, user) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return next(new Error('User not found ' + id));
+    }
+    req.user = user;
+    
+    return next();
+  });
+});
+
+router.get('/profile/:user', function (req, res, next) {
+  let user = {username : req.user.username, id:req.user._id, joined: req.user.joined, activity: new Array()}
+  let query = Challenge.find().populate({path: 'entries', select:'id'});
+  query.where('author',user.id);
+  query.exec(function (err, challenges) {
+    if (err) {
+      return next(err);
+    }
+    if (!challenges) {
+      return next(new Error('No challenges found for user ' + id));
+    }
+    challenges.forEach(activity => {
+      
+      activity = {activity};
+      activity.type= "challenge";
+      user.activity.push(activity);
+    });
+
+    let query = Entry.find();
+    query.where('author',user.id);
+    query.exec(function (err, entries) {
+      if (err) {
+        return next(err);
+      }
+      if (!entries) {
+        return next(new Error('No entries found for user ' + id));
+      }
+      entries.forEach(activity => {
+        activity = {activity};
+        activity.type= "entry";
+        user.activity.push(activity);
+      });
+      user.activity = user.activity.sort((o1,o2) =>  new Date(o2.activity.created) - new Date(o1.activity.created));
+      res.json(user);
+    });
+
+
+
+  });
+
+  
+
+  
+});
+
 router.post('/challenge/:challenge/entries', auth,
   function (req, res, next) {
     let entr = new Entry(req.body);
@@ -126,10 +187,6 @@ router.post('/challenge/:challenge/entries', auth,
       });
 
       })
-
-      
-
-
     });
   });
 
@@ -150,6 +207,8 @@ router.delete('/challenge/:challenge', function (req, res) {
       });
     })
 })
+
+
 
 router.put('/challenge/:challenge', function (req, res, next) {
   req.challenge.save(function (err) {

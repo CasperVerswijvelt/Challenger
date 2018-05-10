@@ -21,13 +21,18 @@ import { SortByEntriesPipe } from './sort-by-entries.pipe';
 import { LoginPartialComponent } from '../login-partial/login-partial.component';
 import { EntrySortByDatePipe } from './entry-sort-by-date.pipe';
 import { ChallengeListResolver } from "./entry/challenge-list-resolver";
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileResolver } from "./profile-resolver";
+import { EntryModalComponent } from './entry-modal/entry-modal.component';
 
 const routes = [
     { path: 'challenge/list', component: ChallengeListComponent,
         resolve: { challenges: ChallengeListResolver}},
     { path: 'challenge/add',canActivate: [ AuthGuardService ], component: AddChallengeComponent },
     { path: 'challenge/:id', component: ChallengeDetailsComponent,
-        resolve: { challenge: ChallengeResolver}}
+        resolve: { challenge: ChallengeResolver}},
+    { path: 'profile/:id', component: ProfileComponent ,
+        resolve: { profile: ProfileResolver}}
   ];
 
 @NgModule({
@@ -46,7 +51,9 @@ const routes = [
         ChallengeDetailsComponent,
         AddEntryComponent,
         SortByEntriesPipe,
-        EntrySortByDatePipe],
-    providers: [AuthenticationService, ChallengeDataService , ChallengeResolver , ChallengeListResolver]
+        EntrySortByDatePipe,
+        ProfileComponent,
+        EntryModalComponent],
+    providers: [AuthenticationService, ChallengeDataService , ChallengeResolver , ChallengeListResolver, ProfileResolver]
   })
   export class ChallengeModule { }

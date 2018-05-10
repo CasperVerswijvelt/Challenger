@@ -1,0 +1,100 @@
+<div class="col-md-3 d-none d-md-block">
+  <div class="card" style="position: fixed;" [ngStyle]="">
+    <h3 class="card-header">
+      Profile of {{Activity.username}}
+    </h3>
+    <div class="card-body">
+      <p><strong>Challenges created:</strong> {{aantalChallenges}}</p>
+      <p><strong>Submissions made:</strong> {{aantalEntries}}</p>
+
+
+      <p class="text-muted">Registered on {{Activity.joined | date: "d/M/'yy - HH:mm"}}</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="container col-md-6 offset-md-5">
+
+  <div class="row">
+
+    <div class="timeline-centered">
+
+      <article class="timeline-entry" *ngFor="let entry of Activity.activity">
+
+        <div class="timeline-entry-inner" *ngIf="entry.type == 'challenge'">
+          <div class="timeline-icon bg-warning">
+            <i class="entypo-feather"></i>
+          </div>
+
+          <div class="timeline-label">
+            <h2>
+              <a>{{Activity.username}}</a>
+              <span>created a new challenge</span>
+              <h5>{{entry.activity.name}}</h5>
+            </h2>
+            <blockquote>{{entry.activity.description}}</blockquote>
+            <p class="text-muted">{{entry.activity.created | date: "d/M/'yy - HH:mm"}}</p>
+          </div>
+        </div>
+
+        <div class="timeline-entry-inner" *ngIf="entry.type == 'entry'">
+          <div class="timeline-icon bg-info">
+            <i class="entypo-feather"></i>
+          </div>
+          <div class="timeline-label ">
+
+
+
+            <h2>
+              <a>{{Activity.username}}</a>
+              <span>submitted a picture</span>
+            </h2>
+            <div class="col-md-6">
+              <img src="{{entry.activity.img}}" style="width: 100%; cursor: pointer;" data-toggle="modal" [attr.data-target]="'#imagemodal' + entry.activity._id" >
+            </div>
+
+            <blockquote>{{entry.activity.description}}</blockquote>
+            <p class="text-muted">{{entry.activity.created | date: "d/M/'yy - HH:mm"}}</p>
+
+            <app-entry-modal [Entry]="entry.activity"></app-entry-modal>
+
+
+          </div>
+
+
+        </div>
+
+      </article>
+
+
+
+
+
+      <article class="timeline-entry begin">
+
+        <div class="timeline-entry-inner">
+
+          <div class="timeline-icon" style="-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);">
+            <i class="entypo-flight"></i> +
+          </div>
+
+          <div class="timeline-label">
+            <h2>
+              <a href="#">{{Activity.username}}</a>
+              <span>registered on Challenger</span>
+            </h2>
+            <p class="text-muted">{{Activity.joined | date: "d/M/'yy - HH:mm"}}</p>
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+  </div>
+</div>

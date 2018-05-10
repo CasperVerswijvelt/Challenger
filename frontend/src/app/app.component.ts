@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ChallengeDataService } from './challenge/challenge-data.service';
 import { Challenge } from './challenge/challenge/challenge.model';
 import { AuthenticationService } from './user/authentication.service';
-
+declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,15 @@ export class AppComponent implements OnInit {
   title = 'Challenger';
   private _challenges: Challenge[];
   ngOnInit(): void {
+    $(document).ready(function () {
+      $(".navbar-collapse.collapse.show a").click(function(event) {
+        $(".navbar-collapse").collapse('hide');
+      });
+      $("*").click(function(event) {
+        $(".navbar-collapse").collapse('hide');
+      });
+      
+    });
   }
   public isMenuCollapse:boolean = true;;
 

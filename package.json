@@ -2,7 +2,7 @@
   "name": "challengerapp",
   "version": "1.0.0",
   "description": "Challenger app",
-  "homepage": "http://www.github.com/pieter-hogent/",
+  "homepage": "https://challenger-frontend.herokuapp.com/",
   "scripts": {
     "start": "node server",
     "deploy-backend": "git subtree push --prefix backend challenger-backend master",

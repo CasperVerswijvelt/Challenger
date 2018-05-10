@@ -10,6 +10,7 @@ router.post('/register', function(req, res, next) {
   }
   let user = new User();
   user.username = req.body.username;
+  user.joined = new Date();
   user.setPassword(req.body.password);
   user.save(function(err) {
     if (err) {
