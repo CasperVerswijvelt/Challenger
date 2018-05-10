@@ -24,6 +24,7 @@
       "scripts": ["./assets/js/jquery.min.js",
         "./assets/bootstrap/js/bootstrap.min.js",
       "./assets/js/theme.js",
+      "./assets/bootstrap/js/util.js",
       "./assets/bootstrap/js/modal.js"],
 
       "environmentSource": "environments/environment.ts",

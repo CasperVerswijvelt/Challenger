@@ -35,8 +35,9 @@ export class AddEntryComponent implements OnInit {
     if (this.IsImageOk(entry.img)) {
       this.errorMsg = null;
       this.newEntry.emit(entry);
+      this.closeModal();
+      this.entryForm.reset();
     } else {
-      console.log("De error hieronder toont dat de ingegeven url niet correct is, mag genegeerd worden.")
       this.errorMsg = "The provided URL does not point to an image"
     }
   }
@@ -46,15 +47,11 @@ export class AddEntryComponent implements OnInit {
     try {
       img.src = imgSrc;
     } catch (err) {
-      return false;
-    }
-
-    if (img.naturalWidth === 0) {
-      console.log("width");
+      console.log("De error hieronder toont dat de ingegeven url niet correct is, mag genegeerd worden.")
       return false;
     }
     if (!img.complete) {
-      console.log("incomplete");
+      console.log("Afbeelding is incomplete, mag niet submitten");
       return false;
     }
     return true;

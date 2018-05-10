@@ -1,71 +1,72 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <!DOCTYPE html>
-<html>
+<html style="height: 80%;">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Brand</title>
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
-    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Brand</title>
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+  <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container">
+      <a class="navbar-brand logo" class="nav-link" routerLinkActive='active' routerLink="/">{{title}}</a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navcol-1" data-target="#navcol-1">
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" routerLinkActive='active' routerLink="/home">
+              Home
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" routerLinkActive='active' routerLink="/challenge/list">
+              Challenges
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" routerLinkActive='active' routerLink="/challenge/add">
+              Create your own challenge
+            </a>
+          </li>
+          <li *ngIf="currentUser | async" class="nav-item" style="padding-right: 0.5em;" role="presentation">
+            <a style="cursor: pointer;" class="nav-link ">Welcome {{currentUser | async}}</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <app-login-partial></app-login-partial>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main class="page">
+    <section class="clean-block about-us">
+
+      <div class="mx-auto router-outlet" class="col col-lg-8 offset-lg-2">
+          <br>
+        <router-outlet ></router-outlet>
+      </div>
+
+    </section>
+  </main>
+  <footer class="footer">
         <div class="container">
-            <a class="navbar-brand logo" class="nav-link" routerLinkActive='active' routerLink="/">{{title}}</a>
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" routerLinkActive='active' routerLink="/home">
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" routerLinkActive='active' routerLink="/challenge/list">
-                            Challenges
-                        </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" routerLinkActive='active' routerLink="/challenge/add">
-                            Create your own challenge
-                        </a>
-                    </li>
-                    <li *ngIf="currentUser | async" class="nav-item" style="padding-right: 0.5em;" role="presentation">
-                        <a  style= "cursor: pointer;" class="nav-link "  >Welcome {{currentUser | async}}</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <app-login-partial ></app-login-partial>
-                    </li>
-                    
-                </ul>
-            </div>
+          <span class="text-muted">© 2018 Challenger, Casper Verswijvelt</span>
         </div>
-    </nav>
-    <main class="page">
-        <section class="clean-block about-us">
+      </footer>
 
-            <div class="mx-auto" style="width: 80%;">
-                    <router-outlet></router-outlet>
-            </div>
-
-        </section>
-    </main>
-    <footer class="page-footer dark">
-        <div class="footer-copyright">
-            <p>© 2018 Challenger, Casper</p>
-        </div>
-    </footer>
-    
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../assets/js/theme.js"></script>
-    <script src="../assets/bootstrap/js/modal.js"></script>
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/bootstrap/js/modal.js"></script>
 </body>
 
 </html>

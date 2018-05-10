@@ -1,5 +1,3 @@
-
-
 let mongoose = require('mongoose');
 let Challenge = mongoose.model('Challenge');
 let Entry = mongoose.model('Entry');
@@ -10,7 +8,9 @@ var router = express.Router();
 
 /*authenticatie*/
 let jwt = require('express-jwt');
-let auth = jwt({secret: process.env.CHALLENGER_BACKEND_SECRET});
+let auth = jwt({
+  secret: process.env.CHALLENGER_BACKEND_SECRET
+});
 
 
 
@@ -20,17 +20,28 @@ router.get('/', function (req, res, next) {
 });
 
 
-router.get('/challenges/',function (req, res, next) {
+router.get('/challenges/', function (req, res, next) {
   let query = Challenge.find()
-    .populate({ path: 'author', select: 'username' })
-    .populate({ path: 'entries' ,populate : {path : 'author' , select: 'username'}})
+    .populate({
+      path: 'author',
+      select: 'username'
+    })
+    .populate({
+      path: 'entries',
+      populate: {
+        path: 'author',
+        select: 'username'
+      }
+    })
   query.exec(function (err, challenges) {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
     res.json(challenges);
   });
 });
 
-router.post('/challenges/', auth,function (req, res, next) {
+router.post('/challenges/', auth, function (req, res, next) {
   Entry.create(req.body.entries, function (err, entr) {
     if (err) {
       return next(err);
@@ -38,7 +49,7 @@ router.post('/challenges/', auth,function (req, res, next) {
     let chal = new Challenge(req.body);
     chal.author = req.user._id;
     chal.save(function (err, ch) {
-      if(err) {
+      if (err) {
         return next(err);
       }
       res.json(ch);
@@ -51,11 +62,24 @@ router.post('/challenges/', auth,function (req, res, next) {
 
 router.param('challenge', function (req, res, next, id) {
   let query = Challenge.findById(id)
-  .populate({ path: 'author', select: 'username' })
-    .populate({ path: 'entries' ,populate : {path : 'author' , select: 'username'}});
+    .populate({
+      path: 'author',
+      select: 'username'
+    })
+    .populate({
+      path: 'entries',
+      populate: {
+        path: 'author',
+        select: 'username'
+      }
+    });
   query.exec(function (err, challenge) {
-    if (err) { return next(err); }
-    if (!challenge) { return next(new Error('not found ' + id)); }
+    if (err) {
+      return next(err);
+    }
+    if (!challenge) {
+      return next(new Error('not found ' + id));
+    }
     req.challenge = challenge;
     return next();
   });
@@ -66,32 +90,62 @@ router.get('/challenge/:challenge', function (req, res, next) {
 });
 
 router.post('/challenge/:challenge/entries', auth,
-  function(req, res, next) {
-  let entr = new Entry(req.body);
-  entr.author = req.user._id;
+  function (req, res, next) {
+    let entr = new Entry(req.body);
+    entr.author = req.user._id;
 
-  entr.save(function(err, entry) {
-    if (err) return next(err);
+    entr.save(function (err, entry) {
+      if (err) return next(err);
+      req.challenge.entries.push(entry);
+      req.challenge.save(function (err, rec) {
+        if (err) {
+          Challenge.remove({
+            _id: entr._id
+          })
+          return next(err);
+        }
 
-    req.challenge.entries.push(entry);
-    req.challenge.save(function(err, rec) {
-      if (err) {
-        Challenge.remove({_id: entr._id})
-        return next(err);
-      }
+        //Challenge opnieuw ophalen, bug waardoor de toegoevoegde entry enkel zijn id teruggegeven wordt
+        let query = Challenge.findById(req.challenge.id)
+        .populate({
+          path: 'author',
+          select: 'username'
+        })
+        .populate({
+          path: 'entries',
+          populate: {
+            path: 'author',
+            select: 'username'
+          }
+        })
+      query.exec(function (err, challenges) {
+        if (err) {
+          return next(err);
+        }
+        res.json(challenges);
+      });
+
+      })
+
       
-      res.json(req.challenge);
-    })
+
+
+    });
   });
-});
 
 
-router.delete('/challenge/:challenge', function(req, res) {
-  Challenge.remove({ _id: {$in: req.challenge.entries }}, 
+router.delete('/challenge/:challenge', function (req, res) {
+  Challenge.remove({
+      _id: {
+        $in: req.challenge.entries
+      }
+    },
     function (err) {
       if (err) return next(err);
-      req.challenge.remove(function(err) {
-        if (err) { return next(err); }   
+      req.challenge.remove(function (err) {
+        if (err) {
+          return next(err);
+        }
         res.json(req.challenge);
       });
     })
@@ -99,7 +153,9 @@ router.delete('/challenge/:challenge', function(req, res) {
 
 router.put('/challenge/:challenge', function (req, res, next) {
   req.challenge.save(function (err) {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
     res.json("updated challenge");
   });
 })

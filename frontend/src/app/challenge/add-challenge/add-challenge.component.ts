@@ -29,7 +29,6 @@ export class AddChallengeComponent implements OnInit {
   onSubmit() {
     
     let challenge : Challenge = new Challenge(this._challenge.value.name, this._challenge.value.description);
-    console.log(challenge);
     this.newChallenge.emit(challenge);
     this._recipeDataService.newChallengeAdded(challenge).subscribe(
       suc => {

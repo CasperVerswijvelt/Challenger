@@ -13,7 +13,6 @@ export class EntryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
   }
 
   openModal() {
