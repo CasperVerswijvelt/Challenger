@@ -8,7 +8,7 @@
     "deploy-backend": " git push origin 'git subtree split --prefix backend challenger-backend master' --force",
     "build-frontend": "cd frontend && ng build --prod",
     "commit-build-changes": "git add . && git commit -m build_files",
-    "deploy-frontend": "npm run build-frontend && npm run copy && npm run commit-build-changes && git subtree push --prefix serve-frontend challenger-frontend master -f",
+    "deploy-frontend": "npm run build-frontend && npm run copy && npm run commit-build-changes && git subtree push --prefix serve-frontend challenger-frontend master",
     "copy": "cpx 'frontend/dist/**' serve-frontend/www"
   },
   "author": {
