@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Challenge } from '../challenge/challenge.model';
 import { ChallengeDataService } from '../challenge-data.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-challenge-list',
@@ -15,12 +15,13 @@ export class ChallengeListComponent implements OnInit {
 
   public FilterGroup : FormGroup;
 
-  constructor(private router: Router,private fb:FormBuilder,private _recipeDataService: ChallengeDataService) { 
+  constructor(private route: ActivatedRoute,private router: Router,private fb:FormBuilder,private _recipeDataService: ChallengeDataService) { 
     
   }
 
   ngOnInit() {
-    this._recipeDataService.challenges.subscribe(items => this._challenges = items);
+    this.route.data.subscribe(item => 
+      this._challenges = item['challenges']);
     this.FilterGroup = this.fb.group({
       filter : this.fb.control('')
     })

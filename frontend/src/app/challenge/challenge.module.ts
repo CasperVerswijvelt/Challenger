@@ -20,9 +20,11 @@ import { AuthenticationInterceptor } from "../http-interceptors/AuthenticationIn
 import { SortByEntriesPipe } from './sort-by-entries.pipe';
 import { LoginPartialComponent } from '../login-partial/login-partial.component';
 import { EntrySortByDatePipe } from './entry-sort-by-date.pipe';
+import { ChallengeListResolver } from "./entry/challenge-list-resolver";
 
 const routes = [
-    { path: 'challenge/list', component: ChallengeListComponent },
+    { path: 'challenge/list', component: ChallengeListComponent,
+        resolve: { challenges: ChallengeListResolver}},
     { path: 'challenge/add',canActivate: [ AuthGuardService ], component: AddChallengeComponent },
     { path: 'challenge/:id', component: ChallengeDetailsComponent,
         resolve: { challenge: ChallengeResolver}}
@@ -45,6 +47,6 @@ const routes = [
         AddEntryComponent,
         SortByEntriesPipe,
         EntrySortByDatePipe],
-    providers: [AuthenticationService, ChallengeDataService , ChallengeResolver ]
+    providers: [AuthenticationService, ChallengeDataService , ChallengeResolver , ChallengeListResolver]
   })
   export class ChallengeModule { }

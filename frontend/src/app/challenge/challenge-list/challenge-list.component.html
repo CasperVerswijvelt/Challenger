@@ -3,37 +3,60 @@
     <h4 style="display:inline-block">
       All challenges
     </h4>
-    <form class="col-xs-2 pull-right" style=" float:right;" [formGroup]='FilterGroup' (ngSubmit)="onFilterSubmit()">
-      <input type='text' placeholder='filter challenge ...' formControlName="filter">
-      <button type="submit">filter</button>
-    </form >
+    <form class="col-xs-2 pull-right form-inline" style=" float:right; " [formGroup]='FilterGroup' (ngSubmit)="onFilterSubmit()">
+      <input type='text' placeholder='filter challenge ...' formControlName="filter" class="form-control">
+      <button type="submit" class="btn float-right d-none d-md-block">filter</button>
+    </form>
   </div>
-      <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Entries</th>
-              <th scope="col">Challenge</th>
-              <th scope="col">Author</th>
-              <th scope="col">Posted on</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let chal of challenges | challengeFilter : filterValue | sortByEntries" >
+  <div class="d-none d-md-block">
+    <table class="table .table-responsive ">
+      <thead>
+        <tr>
+          <th scope="col">Entries</th>
+          <th scope="col">Challenge</th>
+          <th scope="col">Author</th>
+          <th scope="col">Posted on</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let chal of challenges | challengeFilter : filterValue | sortByEntries">
 
-                <th scope="row">{{chal?.entries?.length || "0"}}</th>
-                <td>{{chal.name}}</td>
-                <td>{{chal.author.username}}</td>
-                <td>{{chal.dateCreated | date: "d/M/'yy - HH:mm"}} </td>
-                <td>
-                    <a routerLink="/challenge/{{chal.id}}" class="btn btn-primary">Tell me more</a>
-                </td>
-            </tr>
-          </tbody>
-        </table>
+          <th scope="row">{{chal?.entries?.length || "0"}}</th>
+          <td>{{chal.name}}</td>
+          <td>{{chal.author.username}}</td>
+          <td>{{chal.dateCreated | date: "d/M/'yy - HH:mm"}} </td>
+          <td>
+            <a routerLink="/challenge/{{chal.id}}" class="btn btn-primary">Tell me more</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-md-none">
+
+    <div *ngFor="let chal of challenges | challengeFilter : filterValue | sortByEntries"   style="padding:10px;">
+      <div class="card"> 
+        <div class="card-header">
+          <h4>{{chal.name}}</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Entries:</strong> {{chal?.entries?.length || "0"}}</p>
+            <p><strong>Author:</strong> {{chal.author.username}}</p>
+            <p><strong>Date posted:</strong> {{chal.dateCreated | date: "d/M/'yy - HH:mm"}} </p>
+            <a routerLink="/challenge/{{chal.id}}" class="btn btn-primary">Tell me more</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 
 
-  <a class="text-center" routerLink="/challenge/add" *ngIf="challenges==undefined || challenges.length == 0">There are no challenges yet, make one! <p></p></a>
+
+  <a class="text-center" routerLink="/challenge/add" *ngIf="challenges==undefined || challenges.length == 0">There are no challenges yet, make one!
+    <p></p>
+  </a>
   <p class="text-center" *ngIf="(challenges | challengeFilter : filterValue)?.length == 0 && challenges?.length > 0">No challenges were found matching your input.</p>
 
 

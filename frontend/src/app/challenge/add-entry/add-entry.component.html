@@ -19,7 +19,11 @@
 
               <div *ngIf="errorMsg && errorMsg.length >0" class="alert alert-danger alert-dismissible  fade show" role="alert">
                 <strong>Something went wrong!</strong> {{errorMsg}}
+                <button type="button" class="close" (click)="errorMsg=null" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
+
 
               <div class="form-group">
                 <label for="name">Image:</label>
@@ -29,6 +33,9 @@
 
                 <p *ngIf="entryForm.get('img').errors?.minlength  && entryForm.get('img').touched" class="text-danger">
                   An image URL must be at least 4 characters!
+                </p>
+                <p *ngIf="entryForm.get('img').errors?.maxlength  && entryForm.get('img').touched" class="text-danger">
+                  An image URL can be maximum 500 characters!
                 </p>
                 <p *ngIf="entryForm.get('img').errors?.required && entryForm.get('img').touched" class="text-danger">
                   You must provide an image!
@@ -45,6 +52,9 @@
                 <p *ngIf="entryForm.get('description').errors?.minlength  && entryForm.get('description').touched" class="text-danger">
                   A description must be at least 20 characters!
                 </p>
+                <p *ngIf="entryForm.get('description').errors?.maxlength  && entryForm.get('description').touched" class="text-danger">
+                    A description can be maximum 200 characters!
+                  </p>
                 <p *ngIf="entryForm.get('description').errors?.required && entryForm.get('description').touched" class="text-danger">
                   You must provide a description!
                 </p>

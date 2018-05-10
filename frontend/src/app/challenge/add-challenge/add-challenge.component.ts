@@ -21,14 +21,15 @@ export class AddChallengeComponent implements OnInit {
 
   ngOnInit() {
     this._challenge = this.fb.group({
-      name : this.fb.control('',[Validators.required,Validators.minLength(4)]),
-      description: this.fb.control('',[Validators.required,Validators.minLength(20)])
+      name : this.fb.control('',[Validators.required,Validators.minLength(4),Validators.maxLength(40)]),
+      description: this.fb.control('',[Validators.required,Validators.minLength(20),Validators.maxLength(1000)])
     })
   }
 
   onSubmit() {
     
-    let challenge : Challenge = new Challenge(this._challenge.value.name, this._challenge.value.description);
+    try{
+      let challenge : Challenge = new Challenge(this._challenge.value.name, this._challenge.value.description);
     this.newChallenge.emit(challenge);
     this._recipeDataService.newChallengeAdded(challenge).subscribe(
       suc => {
@@ -39,6 +40,10 @@ export class AddChallengeComponent implements OnInit {
           challenge for ${challenge.name}: ${err.error}`;
       }
     );
+    }catch(err) {
+      console.log(err);
+      this.errorMsg = `${err.message}`;
+    }
     
   }
 

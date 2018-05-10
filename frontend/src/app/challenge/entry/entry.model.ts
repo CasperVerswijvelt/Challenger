@@ -3,7 +3,10 @@ export class Entry {
     private _author;
 
     constructor(private _description: string, private _img: string, private _created: Date = new Date()) {
-        
+        if (_description == null || _description.length < 20 || _description.length > 200)
+            throw new Error("Description must have at least 20 and at max 200 characters");
+        if (_img == null || _img.length < 20 || _img.length > 500)
+            throw new Error("URL to image must have at least 20 and at max 500 characters");
     }
 
     get description() {

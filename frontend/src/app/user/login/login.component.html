@@ -1,30 +1,36 @@
 <div *ngIf="errorMsg && errorMsg.length >0" class="alert alert-danger alert-dismissible  fade show" role="alert">
-    <strong>Login failed</strong> {{errorMsg}}
-  </div>
+  <strong>Login failed</strong> {{errorMsg}}
+  <button type="button" class="close" (click)="errorMsg=null" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
 <body class="text-center">
   <form class="form-signin" asp-route-returnurl="/Sessie/Beheer" method="post" style="width: 100%;
 max-width: 330px;
 padding: 15px;
 margin: auto;" [formGroup]='user' (ngSubmit)='onSubmit()'>
-      <img class="mb-4" src="http://www.pngmart.com/files/3/Safe-PNG-Pic.png" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
+    <img class="mb-4" src="http://www.pngmart.com/files/3/Safe-PNG-Pic.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
 
-      <!-- <div asp-validation-summary="All" class="text-danger"></div>-->
-
-
+    <!-- <div asp-validation-summary="All" class="text-danger"></div>-->
 
 
-      <label class="sr-only">Username</label>
-      <input type="username" class="form-control" placeholder="Username" required autofocus id="username" formControlName='username' data-test="username">
 
 
-      <label asp-for="Password" class="sr-only">Wachtwoord</label>
-      <input asp-for="Password" type="password" class="form-control" placeholder="Password" required id="password" formControlName='password' data-test="password">
+    <label class="sr-only">Username</label>
+    <input type="username" class="form-control" placeholder="Username" required autofocus id="username" formControlName='username'
+      data-test="username">
 
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
-      <br>
-      <a class='item' routerLink="/register">No account yet? Register here</a>
+    <label asp-for="Password" class="sr-only">Wachtwoord</label>
+    <input asp-for="Password" type="password" class="form-control" placeholder="Password" required id="password" formControlName='password'
+      data-test="password">
+
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    <br>
+    <a class='item' routerLink="/register">No account yet? Register here</a>
 
 
 

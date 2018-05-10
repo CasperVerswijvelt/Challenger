@@ -25,7 +25,8 @@
         "./assets/bootstrap/js/bootstrap.min.js",
       "./assets/js/theme.js",
       "./assets/bootstrap/js/util.js",
-      "./assets/bootstrap/js/modal.js"],
+      "./assets/bootstrap/js/modal.js",
+      "./assets/bootstrap/js/ekko-lightbox.min.js"],
 
       "environmentSource": "environments/environment.ts",
       "environments": {

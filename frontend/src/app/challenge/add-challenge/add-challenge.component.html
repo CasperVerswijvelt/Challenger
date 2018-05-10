@@ -1,50 +1,56 @@
 <div class="card">
-        <h4 class="card-header">Create challenge</h4>
-  <div class="card-body">
-        <div *ngIf="errorMsg && errorMsg.length >0" class="alert alert-danger alert-dismissible  fade show" role="alert">
-                <strong>Something went wrong!</strong> {{errorMsg}}
-                <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                </button>-->
-        </div>
-        <form class="form-horizontal" [formGroup]='challenge' (ngSubmit)="onSubmit()">
     
-                <div class="field">
-            
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input [class.is-valid]="challenge.get('name').valid" 
-                                [class.is-invalid]="!challenge.get('name').valid && challenge.get('name').touched" 
-                                autocomplete="off" class="form-control" type="text" id="name" name="name" 
-                                placeholder="Name of the challenge" formControlName="name" #spy >
-                
-                
-                        <p *ngIf="challenge.get('name').errors?.minlength  && challenge.get('name').touched" class="text-danger">
-                          A challenge name must be at least 4 characters long!
-                        </p>
-                        <p *ngIf="challenge.get('name').errors?.required && challenge.get('name').touched"  class="text-danger">
-                            A challenge description is a required field!
-                        </p>
-                    </div>
-            
-            
-                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea [class.is-valid]="challenge.get('description').valid" 
-                                [class.is-invalid]="!challenge.get('description').valid && challenge.get('description').touched"
-                        autocomplete="off" class="form-control" type="text" id="description" name="description" placeholder="Extensive description of the challenge" formControlName="description"></textarea>
-                        <p *ngIf="challenge.get('description').errors?.minlength && challenge.get('description').touched"  class="text-danger">
-                            A challenge description must be at least 20 characters long!
-                        </p>
-                        <p *ngIf="challenge.get('description').errors?.required && challenge.get('description').touched"  class="text-danger">
-                            A challenge description is a required field!
-                        </p>
-                    </div>
-            
-                </div>
-                <button class="btn btn-primary" [disabled]="!challenge.valid" type="submit" >
-                  Create challenge!
-                </button>
-              </form>
+  <h4 class="card-header">Create challenge</h4>
+  <div class="card-body">
+    <div *ngIf="errorMsg && errorMsg.length >0" class="alert alert-danger alert-dismissible  fade show" role="alert">
+      <strong>Something went wrong!</strong> {{errorMsg}}
+      <button type="button" class="close" (click)="errorMsg=null" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form class="form-horizontal" [formGroup]='challenge' (ngSubmit)="onSubmit()">
+
+      <div class="field">
+
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input [class.is-valid]="challenge.get('name').valid" [class.is-invalid]="!challenge.get('name').valid && challenge.get('name').touched"
+            autocomplete="off" class="form-control" type="text" id="name" name="name" placeholder="Name of the challenge" formControlName="name"
+            #spy>
+
+
+          <p *ngIf="challenge.get('name').errors?.minlength  && challenge.get('name').touched" class="text-danger">
+            A challenge name must be at least 4 characters long!
+          </p>
+          <p *ngIf="challenge.get('name').errors?.maxLength  && challenge.get('name').touched" class="text-danger">
+              A challenge can be maximum 40 characters long!
+            </p>
+          <p *ngIf="challenge.get('name').errors?.required && challenge.get('name').touched" class="text-danger">
+            A challenge description is a required field!
+          </p>
+        </div>
+
+
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea [class.is-valid]="challenge.get('description').valid" [class.is-invalid]="!challenge.get('description').valid && challenge.get('description').touched"
+            autocomplete="off" class="form-control" type="text" id="description" name="description" placeholder="Extensive description of the challenge"
+            formControlName="description" style=""></textarea>
+          <p *ngIf="challenge.get('description').errors?.minlength && challenge.get('description').touched" class="text-danger">
+            A challenge description must be at least 20 characters long!
+          </p>
+          <p *ngIf="challenge.get('description').errors?.maxlength && challenge.get('description').touched" class="text-danger">
+              A challenge description can be maximum 1000 characters long!
+            </p>
+          <p *ngIf="challenge.get('description').errors?.required && challenge.get('description').touched" class="text-danger">
+            A challenge description is a required field!
+          </p>
+        </div>
+
+      </div>
+      <button class="btn btn-primary" [disabled]="!challenge.valid" type="submit">
+        Create challenge!
+      </button>
+    </form>
   </div>
 </div>

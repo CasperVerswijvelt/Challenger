@@ -23,23 +23,29 @@ export class AddEntryComponent implements OnInit {
 
   ngOnInit() {
     this.entryForm = this.fb.group({
-      description: this.fb.control('', [Validators.required, Validators.minLength(20)]),
-      img: this.fb.control('', [Validators.required, Validators.minLength(4)])
+      description: this.fb.control('', [Validators.required, Validators.minLength(20), Validators.maxLength(200)]),
+      img: this.fb.control('', [Validators.required, Validators.minLength(4), Validators.maxLength(500)])
     })
   }
 
   onSubmit() {
 
 
-    let entry = new Entry(this.entryForm.value.description, this.entryForm.value.img);
-    if (this.IsImageOk(entry.img)) {
-      this.errorMsg = null;
-      this.newEntry.emit(entry);
-      this.closeModal();
-      this.entryForm.reset();
-    } else {
-      this.errorMsg = "The provided URL does not point to an image"
+    try {
+      let entry = new Entry(this.entryForm.value.description, this.entryForm.value.img);
+      if (this.IsImageOk(entry.img)) {
+        this.errorMsg = null;
+        this.newEntry.emit(entry);
+        this.closeModal();
+        this.entryForm.reset();
+      } else {
+        this.errorMsg = "The provided URL does not point to an image"
+      }
+    } catch (err) {
+      console.log(err);
+      this.errorMsg = `${err.message}`;
     }
+
   }
 
   IsImageOk = function (imgSrc) {
@@ -66,12 +72,8 @@ export class AddEntryComponent implements OnInit {
     this.router.navigateByUrl("/login");
   }
 
-
-  openModal() {
-    this.display = 'block';
-  }
   closeModal() {
-    this.display = 'none';
+    $("#formModal").modal('hide');
   }
 
 
