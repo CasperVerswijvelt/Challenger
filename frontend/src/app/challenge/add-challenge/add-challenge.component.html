@@ -20,13 +20,13 @@
 
 
           <p *ngIf="challenge.get('name').errors?.minlength  && challenge.get('name').touched" class="text-danger">
-            A challenge name must be at least 4 characters long!
+            Challenge name must be at least 4 characters long!
           </p>
-          <p *ngIf="challenge.get('name').errors?.maxLength  && challenge.get('name').touched" class="text-danger">
-              A challenge can be maximum 40 characters long!
+          <p *ngIf="challenge.get('name').errors?.maxlength  && challenge.get('name').touched" class="text-danger">
+              Challenge can be maximum 40 characters long!
             </p>
           <p *ngIf="challenge.get('name').errors?.required && challenge.get('name').touched" class="text-danger">
-            A challenge description is a required field!
+            Challenge description is a required field!
           </p>
         </div>
 

@@ -19,7 +19,7 @@
 
               <div *ngIf="errorMsg && errorMsg.length >0" class="alert alert-danger alert-dismissible  fade show" role="alert">
                 <strong>Something went wrong!</strong> {{errorMsg}}
-                <button type="button" class="close" (click)="errorMsg=null" aria-label="Close">
+                <button type="button" class="close" (click)="clearError()" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>

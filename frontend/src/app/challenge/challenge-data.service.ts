@@ -51,5 +51,26 @@ export class ChallengeDataService {
       return this.http.post(theUrl, entr).pipe(map(Challenge.fromJSON));
   }
 
+  removeEntry(entry : Entry) {
+    console.log(entry)
+    return this.http
+    .delete(`${this._appUrl}entry/${entry._id}`)
+    .pipe(
+      map(
+        Entry.fromJSON
+      )
+    );
+  }
+
+  removeChallenge(challenge : Challenge) {
+    return this.http
+    .delete(`${this._appUrl}challenge/${challenge._id}`)
+    .pipe(
+      map(
+        Challenge.fromJSON
+      )
+    );
+  }
+
 
 }

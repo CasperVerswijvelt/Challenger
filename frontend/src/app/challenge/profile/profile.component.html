@@ -16,6 +16,7 @@
 </div>
 
 
+
 <div class="d-block d-sm-block d-md-none col-sm-10" style="padding-bottom: 2em;margin:auto;">
   <div class="card">
     <h3 class="card-header">
@@ -29,6 +30,7 @@
 
 
       <p class="text-muted">Registered on {{Activity.joined | date: "d/M/'yy - HH:mm"}}</p>
+      
     </div>
   </div>
 </div>
@@ -46,6 +48,7 @@
       <article class="timeline-entry" *ngFor="let entry of Activity.activity">
 
         <div class="timeline-entry-inner" *ngIf="entry.type == 'challenge'">
+          
           <div class="timeline-icon bg-warning">
             <i class="entypo-feather"></i>
           </div>
@@ -57,7 +60,8 @@
               <h5 routerLink="/challenge/{{entry.activity._id}}" style="cursor: pointer;">{{entry.activity.name}}</h5>
             </h2>
             <textarea readonly style="background: transparent; border: 0; width: 100%; min-height: 1.2em;max-height: 10em;height: 4em;line-height: 1em;text-overflow: clip; overflow: hidden;margin-top: 1em;">{{entry.activity.description}}</textarea>
-            <p class="text-muted">{{entry.activity.created | date: "d/M/'yy - HH:mm"}}</p>
+            <p class="text-muted" style="display:inline-block">{{entry.activity.created | date: "d/M/'yy - HH:mm"}}</p>
+            <button (click)="deleteChallenge(entry.activity)" *ngIf="currentUser == Activity.username" class="btn btn-danger float-right" style="display:inline-block; padding: 5px;">Delete</button>
           </div>
         </div>
 
@@ -66,20 +70,22 @@
             <i class="entypo-feather"></i>
           </div>
           <div class="timeline-label ">
-
-
-
             <h2>
               <a routerLink="/profile/{{Activity.username}}">{{Activity.username}}</a>
               <span>submitted a picture to</span>
-              '<a routerLink="/challenge/{{entry.challenge.id}}">{{entry.challenge.name}}</a>'
+              <a *ngIf="entry.challenge" routerLink="/challenge/{{entry.challenge.id}}">{{entry.challenge.name}}</a>
+              <a *ngIf="!entry.challenge">deleted challenge</a>
             </h2>
             <div class="col-md-12">
               <img src="{{entry.activity.img}}" style="width: 100%; cursor: pointer;" data-toggle="modal" [attr.data-target]="'#imagemodal' + entry.activity._id">
             </div>
-
             <textarea readonly style="background: transparent; border: 0; width: 100%; min-height: 1.2em;max-height: 10em;height: 4em;line-height: 1em;text-overflow: clip; overflow: hidden;margin-top: 1em;">{{entry.activity.description}}</textarea>
             <p class="text-muted">{{entry.activity.created | date: "d/M/'yy - HH:mm"}}</p>
+            <button (click)="deleteEntry(entry.activity)" *ngIf="currentUser == Activity.username" class="btn btn-danger float-right" style="display:inline-block; padding: 5px;">Delete</button>
+
+            
+
+            
 
             <app-entry-modal [Entry]="entry.activity"></app-entry-modal>
 

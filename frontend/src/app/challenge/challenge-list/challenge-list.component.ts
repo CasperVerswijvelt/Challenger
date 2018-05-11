@@ -28,7 +28,7 @@ export class ChallengeListComponent implements OnInit {
   }
 
   onFilterSubmit() {
-    this.filterValue = this.FilterGroup.value.filter;
+    this.filterValue = (<string>this.FilterGroup.value.filter).trim();
   }
 
   get challenges() {

@@ -25,7 +25,7 @@ router.get('/challenges/', function (req, res, next) {
   let query = Challenge.find()
     .populate({
       path: 'author',
-      select: 'username'
+      select: 'username _id'
     })
     .populate({
       path: 'entries',
@@ -49,6 +49,7 @@ router.post('/challenges/', auth, function (req, res, next) {
     }
     let chal = new Challenge(req.body);
     chal.author = req.user._id;
+    chal.created = new Date();
     chal.save(function (err, ch) {
       if (err) {
         return next(err);
@@ -65,7 +66,7 @@ router.param('challenge', function (req, res, next, id) {
   let query = Challenge.findById(id)
     .populate({
       path: 'author',
-      select: 'username'
+      select: 'username _id'
     })
     .populate({
       path: 'entries',
@@ -86,6 +87,25 @@ router.param('challenge', function (req, res, next, id) {
   });
 });
 
+router.param('entry', function (req, res, next, id) {
+  let query = Entry.findById(id).populate({
+    path: 'author',
+    select: 'username _id'
+  });
+
+  query.exec(function (err, entry) {
+    if (err) {
+      return next(err);
+    }
+    if (!entry) {
+      return next(new Error('not found ' + id));
+    }
+    req.entry = entry;
+
+    return next();
+  });
+});
+
 router.get('/challenge/:challenge', function (req, res, next) {
   res.json(req.challenge);
 });
@@ -100,15 +120,23 @@ router.param('user', function (req, res, next, id) {
       return next(new Error('User not found ' + id));
     }
     req.user = user;
-    
+
     return next();
   });
 });
 
 router.get('/profile/:user', function (req, res, next) {
-  let user = {username : req.user.username, id:req.user._id, joined: req.user.joined, activity: new Array()};
-  let query = Challenge.find().populate({path: 'entries', select:'id'});
-  query.where('author',user.id);
+  let user = {
+    username: req.user.username,
+    id: req.user._id,
+    joined: req.user.joined,
+    activity: new Array()
+  };
+  let query = Challenge.find().populate({
+    path: 'entries',
+    select: 'id'
+  });
+  query.where('author', user.id);
   query.exec(function (err, challenges) {
     if (err) {
       return next(err);
@@ -118,13 +146,15 @@ router.get('/profile/:user', function (req, res, next) {
     }
     allChallenges = challenges;
     challenges.forEach(activity => {
-      activity = {activity};
-      activity.type= "challenge";
+      activity = {
+        activity
+      };
+      activity.type = "challenge";
       user.activity.push(activity);
     });
 
     let query = Entry.find();
-    query.where('author',user.id);
+    query.where('author', user.id);
     query.exec(function (err, entries) {
       if (err) {
         return next(err);
@@ -133,39 +163,50 @@ router.get('/profile/:user', function (req, res, next) {
         return next(new Error('No entries found for user ' + id));
       }
 
-      Challenge.find().populate({path: 'entries', select:'id'}).exec(function(err, challenges) {
+      Challenge.find().populate({
+        path: 'entries',
+        select: 'id'
+      }).exec(function (err, challenges) {
         entries.forEach(activity => {
-          
-          
-          
-          let challengeParent = challenges.find(chal => chal.entries.indexOf(activity._id));
-          activity = {activity};
-          activity.type= "entry";
-          activity.challenge = {name:challengeParent.name, id: challengeParent._id}
 
+          let challengeParent = challenges.filter(chal =>
+            chal.entries.filter(entry => entry._id.equals(activity.id)).length > 0
+          )[0]
+
+          activity = {
+            activity
+          };
+          activity.type = "entry";
+          if (challengeParent) {
+            activity.challenge = {
+              name: challengeParent.name,
+              id: challengeParent._id
+            }
+          }
 
           user.activity.push(activity);
-          
+
         });
-        user.activity = user.activity.sort((o1,o2) =>  new Date(o2.activity.created) - new Date(o1.activity.created));
+        user.activity = user.activity.sort((o1, o2) => new Date(o2.activity.created) - new Date(o1.activity.created));
         res.json(user);
       })
-      
+
     });
 
 
 
   });
 
-  
 
-  
+
+
 });
 
 router.post('/challenge/:challenge/entries', auth,
   function (req, res, next) {
     let entr = new Entry(req.body);
     entr.author = req.user._id;
+    entr.created = new Date();
 
     entr.save(function (err, entry) {
       if (err) return next(err);
@@ -179,45 +220,52 @@ router.post('/challenge/:challenge/entries', auth,
         }
 
         //Challenge opnieuw ophalen, bug waardoor de toegoevoegde entry enkel zijn id teruggegeven wordt
-        let query = Challenge.findById(req.challenge.id)  
-        .populate({
-          path: 'author',
-          select: 'username'
-        })
-        .populate({
-          path: 'entries',
-          populate: {
+        let query = Challenge.findById(req.challenge.id)
+          .populate({
             path: 'author',
             select: 'username'
+          })
+          .populate({
+            path: 'entries',
+            populate: {
+              path: 'author',
+              select: 'username'
+            }
+          })
+        query.exec(function (err, challenges) {
+          if (err) {
+            return next(err);
           }
-        })
-      query.exec(function (err, challenges) {
-        if (err) {
-          return next(err);
-        }
-        res.json(challenges);
-      });
+          res.json(challenges);
+        });
 
       })
     });
   });
 
 
-router.delete('/challenge/:challenge', function (req, res) {
-  Challenge.remove({
-      _id: {
-        $in: req.challenge.entries
-      }
-    },
-    function (err) {
-      if (err) return next(err);
-      req.challenge.remove(function (err) {
-        if (err) {
-          return next(err);
-        }
-        res.json(req.challenge);
-      });
-    })
+router.delete('/challenge/:challenge', auth, function (req, res) {
+  if (req.challenge.author._id.equals(req.user._id)) {
+    Challenge.findByIdAndRemove(req.challenge._id, (err, todo) => {
+      if (err) return res.status(500).send(err);
+      res.json(req.challenge);
+    });
+  } else
+    res.json("Authenticated user not owner of this challenge")
+
+})
+
+
+
+router.delete('/entry/:entry', auth, function (req, res) {
+  if (req.entry.author._id.equals(req.user._id)) {
+    Entry.findByIdAndRemove(req.entry._id, (err, todo) => {
+      if (err) return res.status(500).send(err);
+      res.json(req.entry);
+    });
+  } else
+    res.json("Authenticated user not owner of this entry")
+
 })
 
 

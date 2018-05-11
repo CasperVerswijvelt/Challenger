@@ -10,12 +10,12 @@ import { ChallengeDataService } from './challenge-data.service';
 
 @Injectable()
 export class ChallengeResolver implements Resolve<Challenge> {
-  constructor(private recipeService: ChallengeDataService) {}
+  constructor(private _challengeDataService: ChallengeDataService) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Challenge> {
-    return this.recipeService.getChallenge(route.params['id']);
+    return this._challengeDataService.getChallenge(route.params['id']);
   }
 }

@@ -1,6 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChallengeDataService } from '../challenge-data.service';
+import { AuthenticationService } from '../../user/authentication.service';
+import { Challenge } from '../challenge/challenge.model';
+import { Entry } from '../entry/entry.model';
+
+var _userActivity;
 
 @Component({
   selector: 'app-profile',
@@ -8,14 +13,18 @@ import { ChallengeDataService } from '../challenge-data.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  private _userActivity;
 
-  constructor(private route: ActivatedRoute, private challengeDataService: ChallengeDataService) {
+  public currentUser;
+
+  constructor(private route: ActivatedRoute, private challengeDataService: ChallengeDataService, private _authService: AuthenticationService) {
     this.route.data.subscribe(item =>
-      this._userActivity = item['profile']);
-      console.log(this._userActivity);
-      //Manueel alle authors invullen van de activities want die zijn niet mee opgevraagd, is overal toch hetzelfde als de username in bovenste laag van object
-      this._userActivity.activity.forEach(act => act.activity.author = {"username":this._userActivity.username})
+      _userActivity = item['profile']);
+    //Manueel alle authors invullen van de activities want die zijn niet mee opgevraagd, is overal toch hetzelfde als de username in bovenste laag van object
+    _userActivity.activity.forEach(act => act.activity.author = { "username": _userActivity.username });
+    this._authService.user$.subscribe(
+      user => this.currentUser = user ? user.toLowerCase() : null
+    );
+    console.log(_userActivity);
   }
 
   ngOnInit() {
@@ -23,12 +32,12 @@ export class ProfileComponent implements OnInit {
 
 
   get Activity() {
-    return this._userActivity;
+    return _userActivity;
   }
 
   get aantalChallenges() {
     let aantal: number = 0;
-    this._userActivity.activity.forEach(element => {
+    _userActivity.activity.forEach(element => {
       if (element.type == "challenge")
         aantal++
     });;
@@ -37,11 +46,37 @@ export class ProfileComponent implements OnInit {
 
   get aantalEntries() {
     let aantal: number = 0;
-    this._userActivity.activity.forEach(element => {
+    _userActivity.activity.forEach(element => {
       if (element.type == "entry")
         aantal++
     });;
     return aantal;
   }
+
+  deleteChallenge(challenge: Challenge) {
+    this.challengeDataService.removeChallenge(challenge).subscribe(
+      result => {
+        _userActivity.activity = _userActivity.activity.filter(act =>  {
+          return act.activity._id != result.id;
+        })
+        
+      }
+    );;
+  }
+
+  deleteEntry(entry: Entry) {
+    this.challengeDataService.removeEntry(entry).subscribe(
+      result => {
+        _userActivity.activity = _userActivity.activity.filter(act =>  {
+          return act.activity._id != result.id;
+        })
+        
+      }
+      
+    );
+  }
+
+
+
 
 }

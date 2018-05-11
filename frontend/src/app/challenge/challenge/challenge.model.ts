@@ -2,7 +2,7 @@ import { Entry } from "../entry/entry.model";
 
 export class Challenge {
 
-    private _id;
+    public _id;
     private _entries: Entry[];
     private _author;
 

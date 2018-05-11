@@ -40,10 +40,12 @@ export class AddEntryComponent implements OnInit {
   }
 
   onSubmit() {
-    nieuweEntry = new Entry(this.entryForm.value.description, this.entryForm.value.img);
-    this.testImage();
-
-
+    try {
+      this.testImage(new Entry((<string>this.entryForm.value.description).trim(),(<string>this.entryForm.value.img).trim()));
+    } catch(err) {
+      errorMsg = err.message;
+        }
+    
   }
   get errorMsg() {
     return errorMsg;
@@ -62,8 +64,8 @@ export class AddEntryComponent implements OnInit {
     $("#formModal").modal('hide');
   }
 
-  testImage = function () {
-    console.log(nieuweEntry)
+  testImage = function (entry : Entry) {
+    nieuweEntry = entry;
     var tester = new Image();
     tester.onload = this.imageFound;
     tester.onerror = this.imageNotFound;
@@ -76,13 +78,17 @@ export class AddEntryComponent implements OnInit {
     emitter.emit(nieuweEntry);
     $("#formModal").modal('hide');
     entryForm.reset();
-    
-
+    nieuweEntry = null;
   }
 
   imageNotFound = function (entry: Entry) {
     console.log('Image was not found, aborting submission');
     errorMsg = "The provided URL does not point to an image";
+    nieuweEntry = null;
+  }
+
+  clearError() {
+    errorMsg = "";
   }
 
 
