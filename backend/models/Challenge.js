@@ -7,7 +7,7 @@ let ChallengeSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: val => lengthBetween(val, 4,40),
-      message: "Name must be 4 - 500 characters long"
+      message: "Name must be 4 - 40 characters long"
     },
   },
   description:{

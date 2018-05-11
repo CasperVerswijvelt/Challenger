@@ -8,7 +8,7 @@ export class Challenge {
 
     constructor(private _name: string, private _description: string, private _dateCreated: Date = new Date()) {
         if (_name == null || _name.length < 4 || _name.length > 40)
-            throw new Error("Name must have at least 4 and at max 20 characters");
+            throw new Error("Name must have at least 4 and at max 40 characters");
         if (_description == null || _description.length < 20 || _description.length > 1000)
             throw new Error("Description must have at least 20 and at max 1000 characters");
 

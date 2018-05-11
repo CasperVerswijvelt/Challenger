@@ -1,4 +1,12 @@
+<div *ngIf="errorMsg" class="alert alert-danger alert-dismissible" role="alert">
+    <strong>Something went wrong</strong> {{errorMsg}}
+    <button type="button" class="close" (click)="errorMsg=null" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+
 <div class="card">
+    
   <app-challenge [Challenge]="challenge"></app-challenge>
 
   <div class="card" style="margin:0">
