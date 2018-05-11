@@ -76,6 +76,11 @@ export class AddEntryComponent implements OnInit {
     $("#formModal").modal('hide');
   }
 
+  get userLoggedIn(){
+    console.log(this.currentUser);
+    return this.currentUser != null;
+  }
+
 
 
 }

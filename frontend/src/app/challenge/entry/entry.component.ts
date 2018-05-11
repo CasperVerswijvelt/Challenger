@@ -15,6 +15,7 @@ export class EntryComponent implements OnInit {
   ngOnInit() {
   }
 
+
   openModal() {
     this.display = 'block';
   }

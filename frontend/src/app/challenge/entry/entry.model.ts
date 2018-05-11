@@ -1,6 +1,6 @@
 export class Entry {
-    private _id;
-    private _author;
+    public _id;
+    public _author;
 
     constructor(private _description: string, private _img: string, private _created: Date = new Date()) {
         if (_description == null || _description.length < 20 || _description.length > 200)

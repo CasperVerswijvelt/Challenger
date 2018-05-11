@@ -27,7 +27,7 @@ export class ChallengeDataService {
   }
   getUserActivity(id) {
     return this.http
-    .get(`${this._appUrl}profile/${id}`).pipe(catchError(this.handleError));
+    .get(`${this._appUrl}profile/${id}`);
   }
   getChallenge(id: string): Observable<Challenge> {
     return this.http
