@@ -4,8 +4,10 @@
       Profile of {{Activity.username}}
     </h3>
     <div class="card-body">
-      <p><strong>Challenges created:</strong> {{aantalChallenges}}</p>
-      <p><strong>Submissions made:</strong> {{aantalEntries}}</p>
+      <p>
+        <strong>Challenges created:</strong> {{aantalChallenges}}</p>
+      <p>
+        <strong>Submissions made:</strong> {{aantalEntries}}</p>
 
 
       <p class="text-muted">Registered on {{Activity.joined | date: "d/M/'yy - HH:mm"}}</p>
@@ -15,19 +17,21 @@
 
 
 <div class="d-block d-sm-block d-md-none col-sm-10" style="padding-bottom: 2em;margin:auto;">
-    <div class="card">
-      <h3 class="card-header">
-        Profile of {{Activity.username}}
-      </h3>
-      <div class="card-body">
-        <p><strong>Challenges created:</strong> {{aantalChallenges}}</p>
-        <p><strong>Submissions made:</strong> {{aantalEntries}}</p>
-  
-  
-        <p class="text-muted">Registered on {{Activity.joined | date: "d/M/'yy - HH:mm"}}</p>
-      </div>
+  <div class="card">
+    <h3 class="card-header">
+      Profile of {{Activity.username}}
+    </h3>
+    <div class="card-body">
+      <p>
+        <strong>Challenges created:</strong> {{aantalChallenges}}</p>
+      <p>
+        <strong>Submissions made:</strong> {{aantalEntries}}</p>
+
+
+      <p class="text-muted">Registered on {{Activity.joined | date: "d/M/'yy - HH:mm"}}</p>
     </div>
   </div>
+</div>
 
 
 
@@ -69,11 +73,11 @@
               <a routerLink="/profile/{{Activity.username}}" style="cursor: pointer;">{{Activity.username}}</a>
               <span>submitted a picture</span>
             </h2>
-            <div class="col-md-6">
-              <img src="{{entry.activity.img}}" style="width: 100%; cursor: pointer;" data-toggle="modal" [attr.data-target]="'#imagemodal' + entry.activity._id" >
+            <div class="col-md-12">
+              <img src="{{entry.activity.img}}" style="width: 100%; cursor: pointer;" data-toggle="modal" [attr.data-target]="'#imagemodal' + entry.activity._id">
             </div>
 
-            <blockquote>{{entry.activity.description}}</blockquote>
+            <textarea readonly style="background: transparent; border: 0; width: 100%; min-height: 5em;">{{entry.activity.description}}</textarea>
             <p class="text-muted">{{entry.activity.created | date: "d/M/'yy - HH:mm"}}</p>
 
             <app-entry-modal [Entry]="entry.activity"></app-entry-modal>
