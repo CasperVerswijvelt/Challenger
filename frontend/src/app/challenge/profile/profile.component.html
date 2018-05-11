@@ -1,4 +1,4 @@
-<div >
+<div>
   <div class="card col-md-4  col-lg-3 d-none d-md-block" style="position: fixed; width: 100%; padding: 0;">
     <h3 class="card-header">
       Profile of {{Activity.username}}
@@ -30,7 +30,7 @@
 
 
       <p class="text-muted">Registered on {{Activity.joined | date: "d/M/'yy - HH:mm"}}</p>
-      
+
     </div>
   </div>
 </div>
@@ -48,7 +48,7 @@
       <article class="timeline-entry" *ngFor="let entry of Activity.activity">
 
         <div class="timeline-entry-inner" *ngIf="entry.type == 'challenge'">
-          
+
           <div class="timeline-icon bg-warning">
             <i class="entypo-feather"></i>
           </div>
@@ -61,7 +61,42 @@
             </h2>
             <textarea readonly style="background: transparent; border: 0; width: 100%; min-height: 1.2em;max-height: 10em;height: 4em;line-height: 1em;text-overflow: clip; overflow: hidden;margin-top: 1em;">{{entry.activity.description}}</textarea>
             <p class="text-muted" style="display:inline-block">{{entry.activity.created | date: "d/M/'yy - HH:mm"}}</p>
-            <button (click)="deleteChallenge(entry.activity)" *ngIf="currentUser == Activity.username" class="btn btn-danger float-right" style="display:inline-block; padding: 5px;">Delete</button>
+
+
+            <div *ngIf="currentUser == Activity.username">
+                <button type="button" class="btn btn-danger float-right" data-toggle="modal" [attr.data-target]="'#modal'+ entry.activity._id">
+                  Delete
+                </button>
+  
+  
+                <div class="modal fade" [attr.id]="'modal'+entry.activity._id" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Delete challenge</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <i>{{entry.activity.name}}</i>
+                        <br>
+                        <br> Are you sure you want to delete this challenge?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button (click)="deleteChallenge(entry.activity)" data-dismiss="modal" type="button" class="btn btn-danger">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
           </div>
         </div>
 
@@ -81,11 +116,40 @@
             </div>
             <textarea readonly style="background: transparent; border: 0; width: 100%; min-height: 1.2em;max-height: 10em;height: 4em;line-height: 1em;text-overflow: clip; overflow: hidden;margin-top: 1em;">{{entry.activity.description}}</textarea>
             <p class="text-muted">{{entry.activity.created | date: "d/M/'yy - HH:mm"}}</p>
-            <button (click)="deleteEntry(entry.activity)" *ngIf="currentUser == Activity.username" class="btn btn-danger float-right" style="display:inline-block; padding: 5px;">Delete</button>
 
-            
 
-            
+
+
+
+            <div *ngIf="currentUser == Activity.username">
+              <button type="button" class="btn btn-danger float-right" data-toggle="modal" [attr.data-target]="'#modal'+ entry.activity._id">
+                Delete
+              </button>
+
+
+              <div class="modal fade" [attr.id]="'modal'+ entry.activity._id" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Delete entry</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <i>{{entry.activity.description}}</i>
+                      <br>
+                      <br> Are you sure you want to delete this entry?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <button (click)="deleteEntry(entry.activity)" data-dismiss="modal" type="button" class="btn btn-danger">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
             <app-entry-modal [Entry]="entry.activity"></app-entry-modal>
 
