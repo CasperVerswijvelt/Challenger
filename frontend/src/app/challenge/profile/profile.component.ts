@@ -24,7 +24,6 @@ export class ProfileComponent implements OnInit {
     this._authService.user$.subscribe(
       user => this.currentUser = user ? user.toLowerCase() : null
     );
-    console.log(_userActivity);
   }
 
   ngOnInit() {
@@ -58,6 +57,10 @@ export class ProfileComponent implements OnInit {
       result => {
         _userActivity.activity = _userActivity.activity.filter(act =>  {
           return act.activity._id != result.id;
+        })
+        _userActivity.activity.forEach(act => {
+          if(typeof act.challenge != 'undefined' && act.challenge.id === result._id)
+            act.challenge = null;
         })
         
       }
