@@ -13,6 +13,9 @@ export class ProfileComponent implements OnInit {
   constructor(private route: ActivatedRoute, private challengeDataService: ChallengeDataService) {
     this.route.data.subscribe(item =>
       this._userActivity = item['profile']);
+      console.log(this._userActivity);
+      //Manueel alle authors invullen van de activities want die zijn niet mee opgevraagd, is overal toch hetzelfde als de username in bovenste laag van object
+      this._userActivity.activity.forEach(act => act.activity.author = {"username":this._userActivity.username})
   }
 
   ngOnInit() {

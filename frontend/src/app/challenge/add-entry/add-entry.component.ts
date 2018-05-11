@@ -7,6 +7,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../../user/authentication.service';
 import { Router } from '@angular/router';
 declare var $: any;
+var nieuweEntry;
+var emitter;
+var entryForm;
+var errorMsg;
+
 @Component({
   selector: 'app-add-entry',
   templateUrl: './add-entry.component.html',
@@ -16,51 +21,32 @@ export class AddEntryComponent implements OnInit {
   @Input() Challenge: Challenge;
   @Output() public newEntry = new EventEmitter<Entry>();
   private entryForm: FormGroup;
-  public errorMsg: String;
   public display: string = 'none';
-  
 
-  constructor(private router: Router, private fb: FormBuilder, private _recipeDataService: ChallengeDataService, private _authService: AuthenticationService) { }
+
+
+
+  constructor(private router: Router, private fb: FormBuilder, private _recipeDataService: ChallengeDataService, private _authService: AuthenticationService) {
+
+    emitter = this.newEntry;
+  }
 
   ngOnInit() {
     this.entryForm = this.fb.group({
       description: this.fb.control('', [Validators.required, Validators.minLength(20), Validators.maxLength(200)]),
       img: this.fb.control('', [Validators.required, Validators.minLength(4), Validators.maxLength(500)])
     })
+    entryForm = this.entryForm;
   }
 
   onSubmit() {
+    nieuweEntry = new Entry(this.entryForm.value.description, this.entryForm.value.img);
+    this.testImage();
 
-
-    try {
-      let entry = new Entry(this.entryForm.value.description, this.entryForm.value.img);
-      if (this.IsImageOk(entry.img)) {
-        this.errorMsg = null;
-        this.newEntry.emit(entry);
-        this.closeModal();
-        this.entryForm.reset();
-      } else {
-        this.errorMsg = "The provided URL does not point to an image"
-      }
-    } catch (err) {
-      this.errorMsg = `${err.message}`;
-    }
 
   }
-
-  IsImageOk = function (imgSrc) {
-    let img = new Image();
-    try {
-      img.src = imgSrc;
-    } catch (err) {
-      console.log("De error hieronder toont dat de ingegeven url niet correct is, mag genegeerd worden.")
-      return false;
-    }
-    if (!img.complete) {
-      console.log("Afbeelding is incomplete, mag niet submitten");
-      return false;
-    }
-    return true;
+  get errorMsg() {
+    return errorMsg;
   }
 
   get currentUser() {
@@ -72,15 +58,35 @@ export class AddEntryComponent implements OnInit {
     this.router.navigateByUrl("/login");
   }
 
-  closeModal() {
+  closeModal = function() {
     $("#formModal").modal('hide');
   }
 
-  get userLoggedIn(){
-    console.log(this.currentUser);
-    return this.currentUser != null;
+  testImage = function () {
+    console.log(nieuweEntry)
+    var tester = new Image();
+    tester.onload = this.imageFound;
+    tester.onerror = this.imageNotFound;
+    tester.src = nieuweEntry.img;
+  }
+
+  imageFound = function () {
+    console.log('Image was found, continueing submission');
+    this.errorMsg = null;
+    emitter.emit(nieuweEntry);
+    $("#formModal").modal('hide');
+    entryForm.reset();
+    
+
+  }
+
+  imageNotFound = function (entry: Entry) {
+    console.log('Image was not found, aborting submission');
+    errorMsg = "The provided URL does not point to an image";
   }
 
 
 
 }
+
+
