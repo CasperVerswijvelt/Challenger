@@ -50,7 +50,7 @@
             <h2>
               <a routerLink="/profile/{{Activity.username}}" style="cursor: pointer;">{{Activity.username}}</a>
               <span>created a new challenge</span>
-              <h5>{{entry.activity.name}}</h5>
+              <h5 routerLink="/challenge/{{entry.activity._id}}" style="cursor: pointer;">{{entry.activity.name}}</h5>
             </h2>
             <blockquote>{{entry.activity.description}}</blockquote>
             <p class="text-muted">{{entry.activity.created | date: "d/M/'yy - HH:mm"}}</p>
