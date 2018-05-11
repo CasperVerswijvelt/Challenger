@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class ChallengeDataService {
   private readonly _appUrl = '/API/';
   constructor(private Router : Router,private http: HttpClient) {
-    console.log(this.Router);
   }
 
 

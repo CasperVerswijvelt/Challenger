@@ -41,7 +41,6 @@ export class AddChallengeComponent implements OnInit {
       }
     );
     }catch(err) {
-      console.log(err);
       this.errorMsg = `${err.message}`;
     }
     

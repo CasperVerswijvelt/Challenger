@@ -43,7 +43,6 @@ export class AddEntryComponent implements OnInit {
         this.errorMsg = "The provided URL does not point to an image"
       }
     } catch (err) {
-      console.log(err);
       this.errorMsg = `${err.message}`;
     }
 
