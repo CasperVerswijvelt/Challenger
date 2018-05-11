@@ -116,8 +116,8 @@ router.get('/profile/:user', function (req, res, next) {
     if (!challenges) {
       return next(new Error('No challenges found for user ' + id));
     }
+    allChallenges = challenges;
     challenges.forEach(activity => {
-      
       activity = {activity};
       activity.type= "challenge";
       user.activity.push(activity);
@@ -132,13 +132,25 @@ router.get('/profile/:user', function (req, res, next) {
       if (!entries) {
         return next(new Error('No entries found for user ' + id));
       }
-      entries.forEach(activity => {
-        activity = {activity};
-        activity.type= "entry";
-        user.activity.push(activity);
-      });
-      user.activity = user.activity.sort((o1,o2) =>  new Date(o2.activity.created) - new Date(o1.activity.created));
-      res.json(user);
+
+      Challenge.find().populate({path: 'entries', select:'id'}).exec(function(err, challenges) {
+        entries.forEach(activity => {
+          
+          
+          
+          let challengeParent = challenges.find(chal => chal.entries.indexOf(activity._id));
+          activity = {activity};
+          activity.type= "entry";
+          activity.challenge = {name:challengeParent.name, id: challengeParent._id}
+
+
+          user.activity.push(activity);
+          
+        });
+        user.activity = user.activity.sort((o1,o2) =>  new Date(o2.activity.created) - new Date(o1.activity.created));
+        res.json(user);
+      })
+      
     });
 
 
@@ -167,7 +179,7 @@ router.post('/challenge/:challenge/entries', auth,
         }
 
         //Challenge opnieuw ophalen, bug waardoor de toegoevoegde entry enkel zijn id teruggegeven wordt
-        let query = Challenge.findById(req.challenge.id)
+        let query = Challenge.findById(req.challenge.id)  
         .populate({
           path: 'author',
           select: 'username'

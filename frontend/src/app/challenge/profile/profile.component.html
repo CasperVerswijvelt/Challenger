@@ -1,5 +1,5 @@
-<div class="col-md-3 d-none d-md-block">
-  <div class="card" style="position: fixed;">
+<div >
+  <div class="card col-md-4  col-lg-3 d-none d-md-block" style="position: fixed; width: 100%; padding: 0;">
     <h3 class="card-header">
       Profile of {{Activity.username}}
     </h3>
@@ -56,7 +56,7 @@
               <span>created a new challenge</span>
               <h5 routerLink="/challenge/{{entry.activity._id}}" style="cursor: pointer;">{{entry.activity.name}}</h5>
             </h2>
-            <blockquote>{{entry.activity.description}}</blockquote>
+            <textarea readonly style="background: transparent; border: 0; width: 100%; min-height: 1.2em;max-height: 10em;height: 4em;line-height: 1em;text-overflow: clip; overflow: hidden;margin-top: 1em;">{{entry.activity.description}}</textarea>
             <p class="text-muted">{{entry.activity.created | date: "d/M/'yy - HH:mm"}}</p>
           </div>
         </div>
@@ -70,14 +70,15 @@
 
 
             <h2>
-              <a routerLink="/profile/{{Activity.username}}" style="cursor: pointer;">{{Activity.username}}</a>
-              <span>submitted a picture</span>
+              <a routerLink="/profile/{{Activity.username}}">{{Activity.username}}</a>
+              <span>submitted a picture to</span>
+              '<a routerLink="/challenge/{{entry.challenge.id}}">{{entry.challenge.name}}</a>'
             </h2>
             <div class="col-md-12">
               <img src="{{entry.activity.img}}" style="width: 100%; cursor: pointer;" data-toggle="modal" [attr.data-target]="'#imagemodal' + entry.activity._id">
             </div>
 
-            <textarea readonly style="background: transparent; border: 0; width: 100%; min-height: 5em;">{{entry.activity.description}}</textarea>
+            <textarea readonly style="background: transparent; border: 0; width: 100%; min-height: 1.2em;max-height: 10em;height: 4em;line-height: 1em;text-overflow: clip; overflow: hidden;margin-top: 1em;">{{entry.activity.description}}</textarea>
             <p class="text-muted">{{entry.activity.created | date: "d/M/'yy - HH:mm"}}</p>
 
             <app-entry-modal [Entry]="entry.activity"></app-entry-modal>
