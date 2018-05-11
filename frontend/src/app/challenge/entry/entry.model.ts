@@ -1,4 +1,5 @@
 export class Entry {
+    //Moest publiek zetten, --prod liet niet toe dat het gebuild werd
     public _id;
     public _author;
 
