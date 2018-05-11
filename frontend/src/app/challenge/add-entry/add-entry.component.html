@@ -28,7 +28,8 @@
               <div class="form-group">
                 <label for="name">Image:</label>
                 <input [class.is-valid]="entryForm.get('img').valid" [class.is-invalid]="!entryForm.get('img').valid && entryForm.get('img').touched"
-                  autocomplete="off" class="form-control" type="text" id="img" name="img" formControlName="img" #spy placeholder="URL to your image (You can upload images with imgur and use the imgur link here!)">
+                  autocomplete="off" class="form-control" type="text" id="img" name="img" formControlName="img" #spy placeholder="https://i.imgur.com/example.jpg">
+                  <i style="font-size: 8pt">You can use <a href="https://imgur.com/upload" target="_blank">Imgur</a> or other image sharing services to upload images. Be sure to right click the image and click <u>copy image address</u>.</i>
 
 
                 <p *ngIf="entryForm.get('img').errors?.minlength  && entryForm.get('img').touched" class="text-danger">
@@ -53,8 +54,8 @@
                   A description must be at least 20 characters!
                 </p>
                 <p *ngIf="entryForm.get('description').errors?.maxlength  && entryForm.get('description').touched" class="text-danger">
-                    A description can be maximum 200 characters!
-                  </p>
+                  A description can be maximum 200 characters!
+                </p>
                 <p *ngIf="entryForm.get('description').errors?.required && entryForm.get('description').touched" class="text-danger">
                   You must provide a description!
                 </p>
@@ -70,9 +71,8 @@
         </div>
       </div>
     </div>
-
-
   </div>
-  <div *ngIf="!(currentUser | async)" style="margin:1em;">
-    <button class="btn btn-primary" (click)="naarLogin()" style="width:100%">Login to submit an entry to this challenge</button>
-  </div>
+</div>
+<div *ngIf="!(currentUser | async)" style="margin:1em;">
+  <button class="btn btn-primary" (click)="naarLogin()" style="width:100%">Login to submit an entry to this challenge</button>
+</div>
