@@ -21,6 +21,11 @@ Gebruikersnaam: WebIV
 Wachtwoord: WebIV1234567
 ```
 
+```
+Gebruikersnaam: web4
+Wachtwoord: gelukkiggeennetbeans
+```
+
 ## Opdracht requirements
 
 - [x] een werkende, op het internet draaiende,web applicatie
