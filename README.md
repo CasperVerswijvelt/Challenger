@@ -8,6 +8,7 @@ Ik koos ervoor een site te maken waar gebruikers hun eigen foto uitdagingen kond
 Je kan een demo van deze webapplicatie bezoeken op deze url
 
 [https://challenger-frontend.herokuapp.com/](https://challenger-frontend.herokuapp.com/)
+[https://challenger-backend.herokuapp.com/](https://challenger-backend.herokuapp.com/)
 
 
 ### Login informatie
@@ -19,9 +20,25 @@ Gebruikersnaam: WebIV
 Wachtwoord: WebIV1234567
 ```
 
+## Opdracht requirements
+
+- [x] een werkende, op het internet draaiende,web applicatie
+- [x] Angular 5 front end
+- [x] Express back end
+- [x] MongoDB database
+- [x] Loginsysteem
+- [x] minstens 4API calls : 7 aanwezig
+- [x] best practices toepassen
+- [x] backend routes afschermen : Routes voor posten en verwijderen hebben authenticatie nodig
+- [x] minstens 4 components : 12 zelfgemaakte aanwezig
+- [x] minstens 1 form : 3 reactive forms
+- [x] responsive en een minimum aan stijl: Bootstrap powered, volledig responsive en mobile friendly
+- [x] regelmatige commits in git 
+
+
 ## Deployment
 
-Je kan dezez applicatie deployen door 2 applicaties aan te maken op heroku en frontend en backend apart daarop te zetten.
+Je kan deze applicatie deployen door 2 applicaties aan te maken op heroku en frontend en backend apart daarop te zetten.
 [Meer info hier](https://pieter-hogent.github.io/web4/slides/heroku.pdf)
 
 ## Gebouwd met
