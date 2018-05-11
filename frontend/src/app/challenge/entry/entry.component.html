@@ -3,13 +3,13 @@
     <div class="col-md-6">
       <div class="card-block" style="padding: 2em;">
           
-        <h3 class="card-title" routerLink="/profile/{{Entry.author._id}}">{{Entry.author.username}}</h3>
+        <h3 class="card-title" routerLink="/profile/{{Entry.author.username}}" style="cursor: pointer;">{{Entry.author.username}}</h3>
         <p class="card-text">{{Entry.description}}</p>
         <i>Posted on {{Entry.created | date: "d/M/'yy - HH:mm"}}</i>
       </div>
     </div>
     <div class="col-md-6" style="cursor: pointer" >
-      <div data-toggle="modal" [attr.data-target]="'#imagemodal' + Entry.id" class="card-img-bottom" style="height: 20em ; background-size: cover;background-repeat: no-repeat; background-position: center;"
+      <div data-toggle="modal" [attr.data-target]="'#imagemodal' + Entry._id" class="card-img-bottom" style="height: 20em ; background-size: cover;background-repeat: no-repeat; background-position: center;"
         [ngStyle]="{'background-image':'url( '+Entry.img+' )'}">
       </div>
     </div>

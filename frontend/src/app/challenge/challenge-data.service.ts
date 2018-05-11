@@ -1,14 +1,17 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import {  retry } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Challenge } from './challenge/challenge.model';
 import { Entry } from './entry/entry.model';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ChallengeDataService {
   private readonly _appUrl = '/API/';
-  constructor(private http: HttpClient) {
+  constructor(private Router : Router,private http: HttpClient) {
+    console.log(this.Router);
   }
 
 
@@ -20,11 +23,12 @@ export class ChallengeDataService {
         list.map(Challenge.fromJSON
         )
       )
+      
     );
   }
   getUserActivity(id) {
     return this.http
-    .get(`${this._appUrl}profile/${id}`);
+    .get(`${this._appUrl}profile/${id}`).pipe(catchError(this.handleError));
   }
   getChallenge(id: string): Observable<Challenge> {
     return this.http
@@ -47,4 +51,6 @@ export class ChallengeDataService {
       const theUrl = `${this._appUrl}challenge/${chal.id}/entries`;
       return this.http.post(theUrl, entr).pipe(map(Challenge.fromJSON));
   }
+
+
 }

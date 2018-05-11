@@ -4,7 +4,7 @@
 </div>
 <div class="card-body">
     <div class="text-muted">
-        Posted on {{Challenge.dateCreated | date: "d/M/'yy - HH:mm"}} by {{Challenge.author.username}}
+        Posted on {{Challenge.dateCreated | date: "d/M/'yy - HH:mm"}} by <span routerLink="/profile/{{Challenge.author.username}}" style="cursor: pointer;">{{Challenge.author.username}}</span>
       </div>
       <br>
   <p class="card-text">

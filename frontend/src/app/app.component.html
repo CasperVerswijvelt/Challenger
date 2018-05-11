@@ -38,7 +38,7 @@
             </a>
           </li>
           <li *ngIf="currentUser | async" class="nav-item" style="padding-right: 0.5em;" role="presentation">
-            <a style="cursor: pointer;" class="nav-link ">Welcome {{currentUser | async}}</a>
+            <a style="cursor: pointer;" class="nav-link" routerLink="/profile/{{currentUser | async}}" routerLInkActive="active" style="cursor: pointer;">Welcome {{currentUser | async}}</a>
           </li>
           <li class="nav-item" role="presentation">
             <app-login-partial></app-login-partial>

@@ -29,7 +29,7 @@ router.post('/login', function(req, res, next) {
       return next(err);
     }
     if (user) {
-      return res.json({ token: user.generateJWT() });
+      return res.json({ token: user.generateJWT()});
     } else {
       return res.status(401).json(info);
     }

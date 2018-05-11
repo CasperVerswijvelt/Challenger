@@ -91,7 +91,7 @@ router.get('/challenge/:challenge', function (req, res, next) {
 });
 
 router.param('user', function (req, res, next, id) {
-  let query = User.findById(id);
+  let query = User.find().where('username', id).findOne();
   query.exec(function (err, user) {
     if (err) {
       return next(err);
@@ -106,7 +106,7 @@ router.param('user', function (req, res, next, id) {
 });
 
 router.get('/profile/:user', function (req, res, next) {
-  let user = {username : req.user.username, id:req.user._id, joined: req.user.joined, activity: new Array()}
+  let user = {username : req.user.username, id:req.user._id, joined: req.user.joined, activity: new Array()};
   let query = Challenge.find().populate({path: 'entries', select:'id'});
   query.where('author',user.id);
   query.exec(function (err, challenges) {

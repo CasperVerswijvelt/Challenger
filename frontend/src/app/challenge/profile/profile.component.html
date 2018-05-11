@@ -1,5 +1,5 @@
 <div class="col-md-3 d-none d-md-block">
-  <div class="card" style="position: fixed;" [ngStyle]="">
+  <div class="card" style="position: fixed;">
     <h3 class="card-header">
       Profile of {{Activity.username}}
     </h3>
@@ -14,9 +14,26 @@
 </div>
 
 
+<div class="d-block d-sm-block d-md-none col-sm-10" style="padding-bottom: 2em;margin:auto;">
+    <div class="card">
+      <h3 class="card-header">
+        Profile of {{Activity.username}}
+      </h3>
+      <div class="card-body">
+        <p><strong>Challenges created:</strong> {{aantalChallenges}}</p>
+        <p><strong>Submissions made:</strong> {{aantalEntries}}</p>
+  
+  
+        <p class="text-muted">Registered on {{Activity.joined | date: "d/M/'yy - HH:mm"}}</p>
+      </div>
+    </div>
+  </div>
+
+
 
 
 <div class="container col-md-6 offset-md-5">
+  <h3 class="text-center">Latest activities</h3>
 
   <div class="row">
 
@@ -31,7 +48,7 @@
 
           <div class="timeline-label">
             <h2>
-              <a>{{Activity.username}}</a>
+              <a routerLink="/profile/{{Activity.username}}" style="cursor: pointer;">{{Activity.username}}</a>
               <span>created a new challenge</span>
               <h5>{{entry.activity.name}}</h5>
             </h2>
@@ -49,7 +66,7 @@
 
 
             <h2>
-              <a>{{Activity.username}}</a>
+              <a routerLink="/profile/{{Activity.username}}" style="cursor: pointer;">{{Activity.username}}</a>
               <span>submitted a picture</span>
             </h2>
             <div class="col-md-6">
@@ -83,7 +100,7 @@
 
           <div class="timeline-label">
             <h2>
-              <a href="#">{{Activity.username}}</a>
+              <a routerLink="/profile/{{Activity.username}}" style="cursor: pointer;">{{Activity.username}}</a>
               <span>registered on Challenger</span>
             </h2>
             <p class="text-muted">{{Activity.joined | date: "d/M/'yy - HH:mm"}}</p>
