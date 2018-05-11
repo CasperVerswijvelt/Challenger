@@ -43,3 +43,4 @@ testem.log
 .DS_Store
 Thumbs.db
 frontend/node_modules/
+backend/node_modules/
