@@ -8,6 +8,7 @@ Ik koos ervoor een site te maken waar gebruikers hun eigen foto uitdagingen kond
 Je kan een demo van deze webapplicatie bezoeken op deze url
 
 [https://challenger-frontend.herokuapp.com/](https://challenger-frontend.herokuapp.com/)
+
 [https://challenger-backend.herokuapp.com/](https://challenger-backend.herokuapp.com/)
 
 
@@ -34,6 +35,14 @@ Wachtwoord: WebIV1234567
 - [x] minstens 1 form : 3 reactive forms
 - [x] responsive en een minimum aan stijl: Bootstrap powered, volledig responsive en mobile friendly
 - [x] regelmatige commits in git 
+
+### Extras
+- [x] Een eigen idee uitwerken : Fotochallenges
+- [x] meer API calls : 7 API calls
+- [x] meer components : 12 zelfgemaakte componenten
+- [x] meer forms : 3 totaal (2 voor posten (Challenge en entry), en 1 voor filter)
+- [x] animaties : Alles met vloeiende animaties zonder 'te veel' te zijn
+- [x] eigen inbreng : profielpagina waar alle activiteit en info van een gebruiker staat en waar hij zijn posts en content kan beheren
 
 
 ## Deployment
