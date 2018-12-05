@@ -7,7 +7,7 @@ Ik koos ervoor een site te maken waar gebruikers hun eigen foto uitdagingen kond
 
 Je kan een demo van deze webapplicatie bezoeken op deze url
 
-[https://challenger-frontend.herokuapp.com/](https://challenger-frontend.herokuapp.com/)
+[https://challenger-frontend-fix.herokuapp.com/](https://challenger-frontend.herokuapp.com/)
 
 [https://challenger-backend.herokuapp.com/](https://challenger-backend.herokuapp.com/)
 
